@@ -14,8 +14,8 @@ class Stage3 {
     this.isSorry = false;
     this.sorryTime = 0;
   }
-  
-  finish(){
+
+  ready(){
     this.people = [];
     for (let i = 0; i < 3; i++) {
       let arr = [];
@@ -27,7 +27,12 @@ class Stage3 {
     this.player = new Player();
     this.isSorry = false;
     this.sorryTime = 0;
+    displayButton();
+  }
+
+  finish(){
     gameStat = statFinished;
+    hideButton();
   }
 
   drawStage3() {

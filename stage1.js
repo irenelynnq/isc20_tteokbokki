@@ -1,25 +1,27 @@
 class Stage1 {
   constructor() {
     this.thinkList = [];
-    
+
     this.input = createInput('');
     this.input.position(-9999, -9999);
-    this.input.size(800, 40);
+    this.input.size(700, 40);
 
     this.thinkNum = 0;
     this.thinkIndex = 0;
   }
-  
+
   ready(){
     this.thinkNum = this.thinkList.length;
-    this.input.position(80, 540);
-  }
-  
-  finish(){
-    this.input.position(-9999, -9999);
     this.thinkIndex = 0;
-    this.thinkNum = this.thinkList.length;
+    for(let i = 0; i < this.thinkList.length; i++) {
+      this.thinkList[i].on();
+    }
+  }
+
+  finish(){
+    this.hideInput();
     gameStat = statTutorial2;
+    hideButton();
   }
 
   drawStage1() {
@@ -55,5 +57,12 @@ class Stage1 {
     }
   }
 
+  hideInput(){
+    this.input.position(-9999, -9999);
+  }
+
+  displayInput(){
+    this.input.position(65, 540);
+  }
 
 }

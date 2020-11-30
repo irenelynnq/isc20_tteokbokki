@@ -10,6 +10,7 @@ const statFinished = 7;
 const statFail = 8;
 
 let gameStat;
+let giveupButton;
 
 let tutorialImages;
 let mainImage;
@@ -63,6 +64,10 @@ function setup() {
   createCanvas(960, 600);
   textFont(momletter);
   gameStat = statMain;
+  giveupButton = createButton('포기하기');
+  giveupButton.size(110, 40);
+  hideButton();
+  giveupButton.mousePressed(giveup);
 }
 
 function draw() {
@@ -104,14 +109,16 @@ function keyPressed() {
   switch (gameStat) {
     case statMain:
       if (keyCode === ENTER) {
-        gameStat += 1;
+        gameStat = statTutorial1;
       }
       break;
     case statTutorial1:
       if (keyCode === ENTER) {
         stage1Time = frameCount;
+        gameStat = statStage1;
         stage1.ready();
-        gameStat += 1;
+        stage1.displayInput();
+        displayButton();
       }
       break;
     case statStage1:
@@ -119,17 +126,19 @@ function keyPressed() {
       break;
     case statTutorial2:
       if (keyCode === ENTER) {
-        gameStat += 1;
+        gameStat = statStage2;
       }
       break;
     case statStage2:
       if (keyCode === ENTER) {
-        gameStat += 1;
+        gameStat = statTutorial3;
       }
       break;
     case statTutorial3:
       if (keyCode === ENTER) {
-        gameStat += 1;
+        stage3.ready();
+        gameStat = statStage3;
+        displayButton();
       }
       break;
     case statStage3:
@@ -156,6 +165,22 @@ function displayTutorial(stage) {
 function displayMain() {
   imageMode(CORNER);
   image(mainImage, 0, 0);
+}
+
+function displayButton() {
+  giveupButton.position(830, 540);
+}
+
+function hideButton() {
+  giveupButton.position(-999, -999);
+}
+
+function giveup() {
+  if (gameStat == statStage1) {
+    stage1.hideInput();
+  }
+  gameStat = statFail;
+  hideButton();
 }
 
 function preloadTutorial() {

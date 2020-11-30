@@ -16,6 +16,9 @@ class Think {
     this.moveY = (endY - startY) / (endTime - startTime);
   }
 
+  on() {
+    this.on = true;
+  }
   off() {
     this.on = false;
   }
@@ -39,13 +42,13 @@ class Think {
     } else if (this.moveX < 0) {
       this.x = constrain(this.startX + this.moveX * (frameCount - (stage1Time + this.startTime)), this.endX, this.startX);
     }
-    
+
     if(this.moveY > 0) {
       this.y = constrain(this.startY + this.moveY * (frameCount - (stage1Time + this.startTime)), this.startY, this.endY);
     } else if (this.moveY < 0){
       this.y = constrain(this.startY + this.moveY * (frameCount - (stage1Time + this.startTime)), this.endY, this.startY);
     }
-    
+
 
   }
 
