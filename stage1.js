@@ -11,17 +11,22 @@ class Stage1 {
   }
 
   ready(){
+    this.input.position(65, 540);
     this.thinkNum = this.thinkList.length;
     this.thinkIndex = 0;
-    for(let i = 0; i < this.thinkList.length; i++) {
-      this.thinkList[i].on();
-    }
+    this.thinkOn();
   }
 
   finish(){
     this.hideInput();
     gameStat = statTutorial2;
     hideButton();
+  }
+
+  thinkOn(){
+    for(let i = 0; i < this.thinkList.length; i++) {
+      this.thinkList[i].reOn();
+    }
   }
 
   drawStage1() {

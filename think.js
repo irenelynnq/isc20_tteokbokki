@@ -16,7 +16,7 @@ class Think {
     this.moveY = (endY - startY) / (endTime - startTime);
   }
 
-  on() {
+  reOn() {
     this.on = true;
   }
   off() {

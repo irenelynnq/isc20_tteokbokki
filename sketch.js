@@ -115,10 +115,9 @@ function keyPressed() {
     case statTutorial1:
       if (keyCode === ENTER) {
         stage1Time = frameCount;
-        gameStat = statStage1;
         stage1.ready();
-        stage1.displayInput();
         displayButton();
+        gameStat = statStage1;
       }
       break;
     case statStage1:
@@ -137,8 +136,8 @@ function keyPressed() {
     case statTutorial3:
       if (keyCode === ENTER) {
         stage3.ready();
-        gameStat = statStage3;
         displayButton();
+        gameStat = statStage3;
       }
       break;
     case statStage3:
