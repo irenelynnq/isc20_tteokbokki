@@ -81,7 +81,7 @@ function preload() {
 function setup() {
   createCanvas(960, 600);
   textFont(momletter);
-  gameStat = statMain;
+  gameStat = statTutorial3;
   giveupButton = createButton('포기하기');
   giveupButton.size(110, 40);
   hideButton();

@@ -32,12 +32,7 @@ class Player {
 
   show(index){
     imageMode(CENTER);
-    if(this.pos > semiGoal) {
-      image(happinessWalkImages[index % 8], this.x + (this.pos - semiGoal), this.y);
-    } else {
-      image(happinessWalkImages[index % 8], this.x, this.y);
-    }
-
+    image(happinessWalkImages[index % 8], this.x, this.y);
   }
 
   go(){
@@ -45,6 +40,9 @@ class Player {
       this.pos += this.speed;
     } else {
       this.pos = goal;
+    }
+    if (this.pos > semiGoal) {
+      this.x = start + (this.pos - semiGoal);
     }
   }
 
@@ -66,20 +64,11 @@ class Player {
   }
 
   isCollided(px, py){
-    if (this.pos <= semiGoal) {
-      if (this.y == py && dist(this.x, this.y, px, py) < this.dia) {
-        return true;
-      } else {
-        return false;
-      }
+    if (this.y == py && dist(this.x, this.y, px, py) < this.dia) {
+      return true;
     } else {
-      if (this.y == py && dist(this.x + (this.pos - semiGoal), this.y, px, py) < this.dia) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
-
   }
 
   slowDown(){

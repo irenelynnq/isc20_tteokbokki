@@ -38,9 +38,8 @@ class Stage3 {
   drawStage3() {
     background(255);
     this.drawBackground();
-
-    this.showSequence();
     this.drawPeople();
+    this.showSequence();
 
     if (this.player.getPos() >= goal && this.player.getY() == lane0) {
       this.finish();
@@ -94,16 +93,16 @@ class Stage3 {
       for (let i = this.keyIndex - 1; i < constrain(this.keyIndex + 7, 0, this.sequence.length); i++) {
         textSize(20);
         fill(255);
-        text(this.sequence[i], (i - this.keyIndex + 1) * 30 + 30, 30);
+        text(this.sequence[i], (i - this.keyIndex + 1) * 30 + this.player.getX() - 30, this.player.getY() - 120);
       }
       textSize(20);
       fill(255);
-      text(this.sequence[this.keyIndex - 1], 30, 60);
+      text(this.sequence[this.keyIndex - 1], this.player.getX() - 30, this.player.getY() - 90);
     } else {
       for (let i = this.keyIndex; i < this.keyIndex + 8; i++) {
         textSize(20);
         fill(255);
-        text(this.sequence[i], (i - this.keyIndex) * 30 + 30, 30);
+        text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX() - 30, this.player.getY() - 120);
       }
     }
   }
