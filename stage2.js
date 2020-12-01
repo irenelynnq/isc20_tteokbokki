@@ -112,6 +112,8 @@ class Stage2 {
     this.textShow = true;
 
     if(this.buttonNum < 9) {
+      //for debug
+      //this.timedue = 2;
       this.timedue = int(random(20,30));
     } else if (this.buttonNum == 9)
       this.timedue = 2;
@@ -125,11 +127,11 @@ class Stage2 {
      img = happy1;
      this.d = 1;
      this.time = millis();
-   } else if((millis() - this.time) >= wait && d == 1) {
+   } else if((millis() - this.time) >= wait && this.d == 1) {
      img = happy2;
      this.d = 2;
      this.time = millis();
-   } else if((millis() - this.time) >= wait && d == 2) {
+   } else if((millis() - this.time) >= wait && this.d == 2) {
      this.finish();
    }
   }
@@ -146,16 +148,19 @@ class Stage2 {
 
     // button 누를 때 배경
     if(this.buttonNum < 3) {
-      background(bed1);
+      //background(bed1);
+      image(bed1, 0, 0);
     } else if (this.buttonNum < 6) {
-      background(bed2);
+      // background(bed2);
+      image(bed2, 0, 0);
     } else {
-      background(bed3);
+      // background(bed3);
+      image(bed3, 0, 0);
     }
 
     // button 전부 누르면
     if(this.buttonNum >= 10) {
-      Image(img, 0, 0);
+      image(img, 0, 0);
       //background(img);
 
       noStroke();
