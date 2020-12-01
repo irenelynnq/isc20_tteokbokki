@@ -28,7 +28,7 @@ class Stage1 {
     background(220);
     image(stage1Background, 0, 0);
 
-    for (let i = 0; i < this.thinkList.length; i++) {
+    /*for (let i = 0; i < this.thinkList.length; i++) {
       this.thinkList[i].move();
       this.thinkList[i].show();
     }
@@ -36,7 +36,8 @@ class Stage1 {
     if (this.thinkNum <= 0) {
       console.log("finish stage 1");
       this.finish();
-    }
+    }*/
+    this.finish();
   }
 
   keyPressedStage1() {

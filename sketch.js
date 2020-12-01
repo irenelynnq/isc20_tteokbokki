@@ -27,6 +27,19 @@ let stage1Time;
 let stage1Background;
 
 
+//for stage2
+let stage2;
+let buttonImg;
+let bed1;
+let bed2;
+let bed3;
+let happy1;
+let happy2;
+let cloud1;
+const wait = 2000;
+let img;
+
+
 //for stage3
 let stage3;
 const lane0 = 285;
@@ -52,7 +65,11 @@ function preload() {
   passerbyBImages = [];
   passerbyCImages = [];
   stage1 = new Stage1();
+
+  stage2 = new Stage2();
+
   stage3 = new Stage3();
+
   preloadEtc();
   preloadImages();
   preloadTutorial();
@@ -85,8 +102,8 @@ function draw() {
     case statTutorial2:
       displayTutorial(2);
       break;
-    case statStage2:
-      text("Stage2입니다", width / 2, height / 2);
+    case statStage2;
+      stage2.drawStage2();
       break;
     case statTutorial3:
       displayTutorial(3);
@@ -104,7 +121,12 @@ function draw() {
       break;
   }
 }
-
+//
+function mousePressed() {
+  if(gameStat == statStage2)
+  stage2.mousePressed2();
+}
+//
 function keyPressed() {
   switch (gameStat) {
     case statMain:
@@ -212,6 +234,15 @@ function preloadImages() {
   passerbyImages.push(passerbyAImages);
   passerbyImages.push(passerbyBImages);
   passerbyImages.push(passerbyCImages);
+
+  //for stage2
+  buttonImg = loadImage('assets/stage2/WillButtonTest.png');
+  bed1 = loadImage('assets/stage2/Bed1.png');
+  bed2 = loadImage('assets/stage2/Bed2.png');
+  bed3 = loadImage('assets/stage2/Bed3.png');
+  happy1 = loadImage('assets/stage2/HappinessLeaving1.png');
+  happy2 = loadImage('assets/stage2/HappinessLeaving2.png');
+  cloud1 = loadImage('assets/stage2/Cloud1.png');
 }
 
 function loadThink() {
