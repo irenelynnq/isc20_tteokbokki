@@ -116,11 +116,13 @@ function draw() {
     case statFinished:
       background(255);
       fill(0);
+      textAlign(CENTER);
       text("떡볶이를 먹었습니다!\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
       break;
     case statFail:
       background(255);
       fill(0);
+      textAlign(CENTER);
       text("떡볶이를 먹지 못했습니다.\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
       break;
   }

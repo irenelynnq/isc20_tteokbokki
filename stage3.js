@@ -162,6 +162,7 @@ class Stage3 {
 
   displaySorry() {
     fill(255);
+    textAlign(LEFT);
     text("죄송합니다...", 80, 560);
     if (frameCount - this.sorryTime >= 200) {
       this.isSorry = false;

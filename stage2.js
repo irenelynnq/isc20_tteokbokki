@@ -54,7 +54,7 @@ class Stage2 {
 
   pushButton() {
     let x = random(20,940);
-    let y = random(20,560);
+    let y = random(20,500);
     let b = new Bubble(x, y, bright);
     this.bubbles.push(b);
   }
