@@ -54,7 +54,7 @@ class Stage2 {
 
   pushButton() {
     let x = random(20,940);
-    let y = random(20,580);
+    let y = random(20,560);
     let b = new Bubble(x, y, bright);
     this.bubbles.push(b);
   }
@@ -63,8 +63,12 @@ class Stage2 {
     if(this.timedue>0 && frameCount % 60 == 0)
       this.timedue --;
 
-    if(this.timedue == 0)
+    if(this.timedue <= 0) {
       return true;
+    } else {
+      return false;
+    }
+
   }
 
   buttonShow() {
@@ -119,10 +123,13 @@ class Stage2 {
   afterEffect() {
     if ((millis() - this.time) >= wait && this.d == 0) {
      img = happy1;
-     this.d++;
+     this.d = 1;
      this.time = millis();
-   } else if((millis() - this.time) >= wait && d > 0) {
+   } else if((millis() - this.time) >= wait && d == 1) {
      img = happy2;
+     this.d = 2;
+     this.time = millis();
+   } else if((millis() - this.tim) >= wait && d == 2) {
      this.finish();
    }
   }
@@ -148,7 +155,8 @@ class Stage2 {
 
     // button 전부 누르면
     if(this.buttonNum >= 10) {
-      background(img);
+      Image(img, 0, 0);
+      //background(img);
 
       noStroke();
       fill(100);
