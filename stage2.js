@@ -129,7 +129,7 @@ class Stage2 {
      img = happy2;
      this.d = 2;
      this.time = millis();
-   } else if((millis() - this.tim) >= wait && d == 2) {
+   } else if((millis() - this.time) >= wait && d == 2) {
      this.finish();
    }
   }
