@@ -5,19 +5,19 @@ class Stage2 {
     this.buttonNum = 0;
     this.textShow = false;
     //처음 버튼 뜨는 시간
-    this.timedue = 8;
+    this.timedue = 10;
     this.bright = 10;
     this.time = 0;
     this.d = 0;
     this.clouds = [];
   }
 
-  ready(){
+  ready() {
     this.bubbles = [];
     this.buttonNum = 0;
     this.textShow = false;
     //처음 버튼 뜨는 시간
-    this.timedue = 8;
+    this.timedue = 1;
     this.bright = 10;
     this.time = millis();
     this.d = 0;
@@ -52,12 +52,82 @@ class Stage2 {
     }
   }
 
-  finish(){
-    gameStat = statTutorial3;
-    hideButton();
+  pushButton() {
+    let x = random(20,940);
+    let y = random(20,580);
+    let b = new Bubble(x, y, bright);
+    this.bubbles.push(b);
   }
 
-  drawStage2() {
+  countdown() {
+    if(this.timedue>0 && frameCount % 60 == 0)
+      this.timedue --;
+
+    if(this.timedue == 0)
+      return true;
+  }
+
+  buttonShow() {
+    if(this.bubbles[this.buttonNum].on && this.timedue == 0) {
+
+    if(this.buttonContain(mouseX, mouseY))
+      tint(100, 50);
+
+      else
+      tint(255, 20 * (this.buttonNum + 1));
+
+      image(buttonImg, this.bubbles[this.buttonNum].x, this.bubbles[this.buttonNum].y);
+    }
+
+      else if(this.bubbles[this.buttonNum].on == false) {
+
+      }
+  }
+
+   buttonContain(px, py) {
+    let a = false;
+    let b = false;
+
+      if(this.bubbles[this.buttonNum].x < px && px < (this.bubbles[this.buttonNum].x + 30))
+      a = true;
+
+      if(this.bubbles[this.buttonNum].y < py && py < (this.bubbles[this.buttonNum].y + 30))
+      b = true;
+
+      if(a && b) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+
+  mousePressed2() {
+    if(this.buttonContain(mouseX, mouseY)) {
+    this.bubbles[this.buttonNum].showOff();
+
+    this.textShow = true;
+
+    if(this.buttonNum < 9) {
+      this.timedue = int(random(20,30));
+    } else if (this.buttonNum == 9)
+      this.timedue = 2;
+
+    this.buttonNum++;
+    }
+  }
+
+  afterEffect() {
+    if ((millis() - this.time) >= wait && this.d == 0) {
+     img = happy1;
+     this.d++;
+     this.time = millis();
+   } else if((millis() - this.time) >= wait && d > 0) {
+     img = happy2;
+     this.finish();
+   }
+  }
+
+    drawStage2() {
     background(191,228,242);
     tint(255);
 
@@ -104,82 +174,9 @@ class Stage2 {
       }
   }
 
-  pushButton() {
-    let x = random(20,940);
-    let y = random(20,580);
-    let b = new Bubble(x, y, bright);
-    this.bubbles.push(b);
-  }
-
-  countdown() {
-    if(this.timedue>0 && frameCount % 60 == 0)
-      this.timedue --;
-
-    if(this.timedue == 0)
-      return true;
-  }
-
-  //button 보여주기
-  buttonShow() {
-    if(this.bubbles[this.buttonNum].on && this.timedue == 0) {
-
-    if(this.buttonContain(mouseX, mouseY))
-      tint(100, 50);
-
-      else
-      tint(255, 20 * (this.buttonNum + 1));
-
-      image(buttonImg, this.bubbles[this.buttonNum].x, this.bubbles[this.buttonNum].y);
-    }
-
-      else if(this.bubbles[this.buttonNum].on == false) {
-
-      }
-
-  }
-
-  //
-  buttonContain(px, py) {
-    let a = false;
-    let b = false;
-
-      if(this.bubbles[this.buttonNum].x < px && px < (this.bubbles[this.buttonNum].x + 30))
-      a = true;
-
-      if(this.bubbles[this.buttonNum].y < py && py < (this.bubbles[this.buttonNum].y + 30))
-      b = true;
-
-      if(a && b) {
-        return true;
-      } else {
-        return false;
-      }
-  }
-
-
-  mousePressed2() {
-    if(this.buttonContain(mouseX, mouseY)) {
-    this.bubbles[this.buttonNum].showOff();
-
-    this.textShow = true;
-
-    if(this.buttonNum < 9) {
-      this.timedue = int(random(5, 8));
-    } else if (this.buttonNum == 9)
-      this.timedue = 2;
-
-    this.buttonNum++;
-    }
-  }
-
-  afterEffect() {
-    if ((millis() - this.time) >= wait && this.d == 0) {
-     img = happy1;
-     this.d++;
-     this.time = millis();
-   } else if((millis() - this.time) >= wait && d >0) {
-     img = happy2;
-   }
+  finish(){
+    gameStat = statTutorial2;
+    hideButton();
   }
 
 }

@@ -38,6 +38,7 @@ let happy2;
 let cloud1;
 const wait = 2000;
 let img;
+let bright = 10;
 
 
 //for stage3
@@ -102,7 +103,7 @@ function draw() {
     case statTutorial2:
       displayTutorial(2);
       break;
-    case statStage2;
+    case statStage2:
       stage2.drawStage2();
       break;
     case statTutorial3:
@@ -149,6 +150,7 @@ function keyPressed() {
     case statTutorial2:
       if (keyCode === ENTER) {
         gameStat = statStage2;
+        stage2.ready();
       }
       break;
     case statStage2:
