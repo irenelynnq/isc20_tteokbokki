@@ -81,7 +81,7 @@ function preload() {
 function setup() {
   createCanvas(960, 600);
   textFont(momletter);
-  gameStat = statMain;
+  gameStat = statTutorial2;
   giveupButton = createButton('포기하기');
   giveupButton.size(110, 40);
   hideButton();
@@ -89,9 +89,10 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  // background(225);
   switch (gameStat) {
     case statMain:
+      background(255);
       displayMain();
       break;
     case statTutorial1:
@@ -113,10 +114,12 @@ function draw() {
       stage3.drawStage3();
       break;
     case statFinished:
+      background(255);
       fill(0);
       text("떡볶이를 먹었습니다!\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
       break;
     case statFail:
+      background(255);
       fill(0);
       text("떡볶이를 먹지 못했습니다.\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
       break;
@@ -148,14 +151,15 @@ function keyPressed() {
       break;
     case statTutorial2:
       if (keyCode === ENTER) {
+        displayButton();
         gameStat = statStage2;
         stage2.ready();
       }
       break;
     case statStage2:
-      if (keyCode === ENTER) {
-        gameStat = statTutorial3;
-      }
+      // if (keyCode === ENTER) {
+      //   gameStat = statTutorial3;
+      // }
       break;
     case statTutorial3:
       if (keyCode === ENTER) {
@@ -181,6 +185,7 @@ function keyPressed() {
 }
 
 function displayTutorial(stage) {
+  background(255);
   imageMode(CORNER);
   image(tutorialImages[stage - 1], 0, 0);
 }

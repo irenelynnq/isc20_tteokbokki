@@ -127,7 +127,7 @@ class Stage2 {
    }
   }
 
-    drawStage2() {
+  drawStage2() {
     background(191,228,242);
     tint(255);
 
@@ -175,7 +175,7 @@ class Stage2 {
   }
 
   finish(){
-    gameStat = statTutorial2;
+    gameStat = statTutorial3;
     hideButton();
   }
 

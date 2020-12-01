@@ -30,7 +30,7 @@ class Stage1 {
   }
 
   drawStage1() {
-    background(220);
+    background(255);
     image(stage1Background, 0, 0);
 
     for (let i = 0; i < this.thinkList.length; i++) {

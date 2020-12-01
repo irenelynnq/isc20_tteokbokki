@@ -36,7 +36,7 @@ class Stage3 {
   }
 
   drawStage3() {
-    background(220);
+    background(255);
     this.drawBackground();
 
     this.showSequence();
