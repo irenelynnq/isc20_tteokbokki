@@ -180,6 +180,7 @@ function keyPressed() {
       break;
     case statFail:
       if (keyCode === ENTER) {
+        tint(255);
         gameStat = statMain;
       }
       break;
