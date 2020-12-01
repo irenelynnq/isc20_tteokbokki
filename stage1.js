@@ -42,6 +42,7 @@ class Stage1 {
       console.log("finish stage 1");
       this.finish();
     }
+    this.finish();
   }
 
   keyPressedStage1() {
