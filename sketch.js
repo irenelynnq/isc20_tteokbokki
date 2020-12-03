@@ -15,6 +15,8 @@ let giveupButton;
 let tutorialImages;
 let mainImage;
 let momletter;
+let bgm;
+let playing = false;
 
 //data tables
 let thinkTable;
@@ -75,6 +77,8 @@ function preload() {
   preloadImages();
   preloadTutorial();
   preloadData();
+  soundFormats('mp3', 'ogg');
+  bgm = loadSound('assets/etc/the woods silent partner.mp3');
 
 }
 
@@ -86,6 +90,8 @@ function setup() {
   giveupButton.size(110, 40);
   hideButton();
   giveupButton.mousePressed(giveup);
+  //bgm.play();
+
 }
 
 function draw() {
@@ -129,6 +135,8 @@ function draw() {
       break;
   }
 }
+
+
 //
 function mousePressed() {
   if(gameStat == statStage2)
@@ -139,6 +147,10 @@ function keyPressed() {
   switch (gameStat) {
     case statMain:
       if (keyCode === ENTER) {
+        if(!playing && bgm.isLoaded()) {
+          playing = true;
+          bgm.loop();
+        }
         gameStat = statTutorial1;
       } else if (key == '1') {
         gameStat = statTutorial1;
