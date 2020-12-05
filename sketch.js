@@ -37,8 +37,7 @@ let happy1;
 let happy2;
 let cloud1;
 const wait = 2000;
-let img;
-let bright = 10;
+let afterImg;
 
 
 //for stage3

@@ -148,7 +148,6 @@ class Stage2 {
 
     // button 전부 누르면
     if(this.buttonNum >= 10) {
-      background(img);
 
       noStroke();
       fill(100);
