@@ -1,27 +1,20 @@
 class Stage2 {
-  constructor() {
-    this.bubbles = [];
+
+constructor() {
+    this.buttonLeft = [];
+    this.buttonRight = [];
     this.texts = [];
     this.buttonNum = 0;
     this.textShow = false;
     //처음 버튼 뜨는 시간
-    this.timedue = 10;
-    this.bright = 10;
+    this.timedue = 1;
     this.time = 0;
     this.d = 0;
     this.clouds = [];
   }
 
-  ready() {
-    this.bubbles = [];
-    this.buttonNum = 0;
-    this.textShow = false;
-    //처음 버튼 뜨는 시간
-    this.timedue = 1;
-    this.bright = 10;
+ready() {
     this.time = millis();
-    this.d = 0;
-    this.clouds = [];
     //
     this.texts.push(' ');
     this.texts.push('아...씻어야되는데...');
@@ -35,134 +28,103 @@ class Stage2 {
     this.texts.push('근데 내가 과연 떡볶이를 먹을 자격이 있나...');
     this.texts.push('몰라. 일단 먹고 생각할래.');
     //
-
-    img = bed3;
-
-    for(let i=0; i<10; i++) {
-      this.pushButton();
-    }
-
+    afterImg = bed3;
     //구름 제작
-    for(let i=0; i<6; i++) {
-      let x = random(0, 400);
-      let y = random(0, 300);
-      //속도
-      let speed = random(0.01, 0.2);
-      this.clouds.push(new Cloud(x, y, speed));
-    }
-  }
+   for(let i=0; i<6; i++) {
+     let x = random(0, 400);
+     let y = random(0, 300);
+     //속도
+     let speed = random(0.01, 0.2);
+     this.clouds.push(new Cloud(x, y, speed));
+   }
+     //버튼 생성
+   for(let i=0; i<10; i++) {
+     this.pushButton();
+   }
+}
 
-  pushButton() {
-    let x = random(20,940);
-    let y = random(20,500);
-    let b = new Bubble(x, y, bright);
-    this.bubbles.push(b);
-  }
+pushButton() {
+  let a1 = new Button(320, 550);
+  let a2 = new Button(640, 550);
+  this.buttonLeft.push(a1);
+  this.buttonRight.push(a2);
+}
 
-  countdown() {
+countdown() {
     if(this.timedue>0 && frameCount % 60 == 0)
       this.timedue --;
 
-    if(this.timedue <= 0) {
+   if(this.timedue <= 0) {
       return true;
     } else {
       return false;
     }
+}
 
-  }
+mousePressed2() {
+  if (this.buttonLeft[this.buttonNum].contains() ||
+  this.buttonRight[this.buttonNum].contains() ) {
+     this.buttonLeft[this.buttonNum].showOff();
+     this.buttonRight[this.buttonNum].showOff();
 
-  buttonShow() {
-    if(this.bubbles[this.buttonNum].on && this.timedue == 0) {
+     this.textShow = true;
 
-    if(this.buttonContain(mouseX, mouseY))
-      tint(100, 50);
+     if (this.buttonNum < 9) {
+       this.timedue = 2;
+     } else if (this.buttonNum == 9)
+       this.timedue = 2;
 
-      else
-      tint(255, 20 * (this.buttonNum + 1));
+     this.buttonNum++;
+   }
+}
 
-      image(buttonImg, this.bubbles[this.buttonNum].x, this.bubbles[this.buttonNum].y);
-    }
-
-      else if(this.bubbles[this.buttonNum].on == false) {
-
-      }
-  }
-
-   buttonContain(px, py) {
-    let a = false;
-    let b = false;
-
-      if(this.bubbles[this.buttonNum].x < px && px < (this.bubbles[this.buttonNum].x + 30))
-      a = true;
-
-      if(this.bubbles[this.buttonNum].y < py && py < (this.bubbles[this.buttonNum].y + 30))
-      b = true;
-
-      if(a && b) {
-        return true;
-      } else {
-        return false;
-      }
-  }
-
-  mousePressed2() {
-    if(this.buttonContain(mouseX, mouseY)) {
-    this.bubbles[this.buttonNum].showOff();
-
-    this.textShow = true;
-
-    if(this.buttonNum < 9) {
-      //for debug
-      //this.timedue = 2;
-      this.timedue = int(random(20,30));
-    } else if (this.buttonNum == 9)
-      this.timedue = 2;
-
-    this.buttonNum++;
-    }
-  }
-
-  afterEffect() {
+afterEffect() {
     if ((millis() - this.time) >= wait && this.d == 0) {
-     img = happy1;
+     afterImg = happy1;
      this.d = 1;
      this.time = millis();
    } else if((millis() - this.time) >= wait && this.d == 1) {
-     img = happy2;
+     afterImg = happy2;
      this.d = 2;
      this.time = millis();
    } else if((millis() - this.time) >= wait && this.d == 2) {
      this.finish();
    }
-  }
+}
+messageShow() {
+    noStroke();
+    fill(100);
+    textSize(20);
+    textAlign(RIGHT);
+    textFont(momletter);
+    text(this.texts[this.buttonNum], 945, 65);
+}
+drawStage2() {
+  background(191, 228, 242);
+  tint(255);
 
-  drawStage2() {
-    background(191,228,242);
-    tint(255);
-
-    // cloud 움직임
+     // cloud 움직임
     for(let i=0; i<this.clouds.length; i++) {
       this.clouds[i].move();
       this.clouds[i].display();
     }
 
     // button 누를 때 배경
-    if(this.buttonNum < 3) {
-      //background(bed1);
-      image(bed1, 0, 0);
-    } else if (this.buttonNum < 6) {
-      // background(bed2);
-      image(bed2, 0, 0);
-    } else {
-      // background(bed3);
-      image(bed3, 0, 0);
-    }
+     if(this.buttonNum < 3) {
+       //background(bed1);
+       image(bed1, 0, 0);
+     } else if (this.buttonNum < 6) {
+       // background(bed2);
+       image(bed2, 0, 0);
+     } else {
+       // background(bed3);
+       image(bed3, 0, 0);
+     }
 
-    // button 전부 누르면
+     // button 전부 누르면
     if(this.buttonNum >= 10) {
-      image(img, 0, 0);
+      image(afterImg, 0, 0);
       //background(img);
-
       noStroke();
       fill(100);
       textSize(20);
@@ -173,23 +135,23 @@ class Stage2 {
       if(this.countdown()) {
         this.afterEffect();
       }
-    }  else {
-        if(this.textShow == true) {
-        noStroke();
-        fill(100);
-        textSize(20);
-        textAlign(RIGHT);
-        textFont(momletter);
-        text(this.texts[this.buttonNum], 945, 65);
-        }
-        if(this.countdown())
-        this.buttonShow();
+    } else {
+      if(this.textShow == true) {
+        this.messageShow();
       }
-  }
+      if(this.countdown()) {
+        tint(this.buttonLeft[this.buttonNum].tint);
+        this.buttonLeft[this.buttonNum].show();
 
-  finish(){
-    gameStat = statTutorial3;
-    hideButton();
-  }
+        tint(this.buttonRight[this.buttonNum].tint);
+        this.buttonRight[this.buttonNum].show();
+      }
+    }
+}
+
+finish() {
+  gameStat = statTutorial3;
+  hideButton();
+}
 
 }

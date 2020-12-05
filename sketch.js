@@ -40,7 +40,7 @@ let happy1;
 let happy2;
 let cloud1;
 const wait = 2000;
-let img;
+let afterImg;
 let bright = 10;
 
 
