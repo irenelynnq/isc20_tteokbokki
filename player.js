@@ -35,6 +35,11 @@ class Player {
     image(happinessWalkImages[index % 8], this.x, this.y);
   }
 
+  showBack(index){
+    imageMode(CENTER);
+    image(happinessBackImages[index], this.x, this.y);
+  }
+
   go(){
     if (this.pos + this.speed < goal){
       this.pos += this.speed;

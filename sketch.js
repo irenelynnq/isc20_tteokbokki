@@ -15,6 +15,7 @@ let giveupButton;
 let tutorialImages;
 let mainImage;
 let momletter;
+let momletterB;
 let bgm;
 let playing = false;
 
@@ -54,6 +55,7 @@ let start = 80;
 //let playerSpeed = 20;
 let playerSpeed = 6.5;
 let happinessWalkImages;
+let happinessBackImages;
 let passerbyImages;
 let passerbyAImages;
 let passerbyBImages;
@@ -63,6 +65,7 @@ let stage3Background;
 
 function preload() {
   happinessWalkImages = [];
+  happinessBackImages = [];
   passerbyImages = [];
   passerbyAImages = [];
   passerbyBImages = [];
@@ -244,6 +247,7 @@ function preloadTutorial() {
 function preloadEtc() {
   mainImage = loadImage('assets/etc/MainCover.png');
   momletter = loadFont('assets/etc/a엄마의편지M.ttf');
+  momletterB = loadFont('assets/etc/a엄마의편지B.ttf');
 }
 
 function preloadData() {
@@ -263,6 +267,8 @@ function preloadImages() {
   passerbyImages.push(passerbyAImages);
   passerbyImages.push(passerbyBImages);
   passerbyImages.push(passerbyCImages);
+  happinessBackImages.push(loadImage('assets/stage3/HappinessBack1.png'));
+  happinessBackImages.push(loadImage('assets/stage3/HappinessBack2.png'));
 
   //for stage2
   buttonImg = loadImage('assets/stage2/WillButtonTest.png');

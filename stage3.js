@@ -13,6 +13,8 @@ class Stage3 {
     this.player = new Player();
     this.isSorry = false;
     this.sorryTime = 0;
+    this.finishFlag = 2;
+    this.timeStandard = 0;
   }
 
   ready(){
@@ -27,6 +29,7 @@ class Stage3 {
     this.player = new Player();
     this.isSorry = false;
     this.sorryTime = 0;
+    this.finishFlag = 2;
     displayButton();
   }
 
@@ -39,10 +42,30 @@ class Stage3 {
     background(255);
     this.drawBackground();
     this.drawPeople();
-    this.showSequence();
+    if(this.finishFlag >= 2) {
+      this.showSequence();
+    }
 
     if (this.player.getPos() >= goal && this.player.getY() == lane0) {
-      this.finish();
+      switch (this.finishFlag) {
+        case 0:
+          if(this.count1Sec()) {
+            this.finish();
+          }
+          break;
+        case 1:
+          if(this.count1Sec()) {
+            this.timeStandard = millis();
+            this.finishFlag -= 1;
+          }
+          break;
+        case 2:
+          this.timeStandard = millis();
+          this.finishFlag -= 1;
+          break;
+        default:
+      }
+
     }
     if (this.isSorry) {
       this.displaySorry();
@@ -57,12 +80,14 @@ class Stage3 {
   }
 
   keyPressedStage3() {
-    if (keyCode === UP_ARROW) {
-      this.player.up();
-    } else if (keyCode === DOWN_ARROW) {
-      this.player.down();
-    } else {
-      this.movePlayer(key.toString());
+    if (!this.isSorry) {
+      if (keyCode === UP_ARROW) {
+        this.player.up();
+      } else if (keyCode === DOWN_ARROW) {
+        this.player.down();
+      } else {
+        this.movePlayer(key.toString());
+      }
     }
     return false;
   }
@@ -89,22 +114,30 @@ class Stage3 {
   }
 
   showSequence() {
-    if (this.keyIndex > 0) {
-      for (let i = this.keyIndex - 1; i < constrain(this.keyIndex + 7, 0, this.sequence.length); i++) {
-        textSize(20);
-        fill(255);
-        text(this.sequence[i], (i - this.keyIndex + 1) * 30 + this.player.getX() - 30, this.player.getY() - 120);
-      }
-      textSize(20);
+    for (let i = this.keyIndex; i < constrain(this.keyIndex + 7, 0, this.sequence.length); i++) {
+      textSize(30);
+      textFont(momletterB);
       fill(255);
-      text(this.sequence[this.keyIndex - 1], this.player.getX() - 30, this.player.getY() - 90);
-    } else {
-      for (let i = this.keyIndex; i < this.keyIndex + 8; i++) {
-        textSize(20);
-        fill(255);
-        text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX() - 30, this.player.getY() - 120);
-      }
+      text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX(), this.player.getY() - 90);
     }
+    textFont(momletter);
+
+    // if (this.keyIndex > 0) {
+    //   for (let i = this.keyIndex - 1; i < constrain(this.keyIndex + 7, 0, this.sequence.length); i++) {
+    //     textSize(30);
+    //     fill(255);
+    //     text(this.sequence[i], (i - this.keyIndex + 1) * 30 + this.player.getX() - 30, this.player.getY() - 120);
+    //   }
+    //   textSize(30);
+    //   fill(255);
+    //   text(this.sequence[this.keyIndex - 1], this.player.getX() - 30, this.player.getY() - 90);
+    // } else {
+    //   for (let i = this.keyIndex; i < this.keyIndex + 8; i++) {
+    //     textSize(20);
+    //     fill(255);
+    //     text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX() - 30, this.player.getY() - 120);
+    //   }
+    // }
   }
 
   drawPeople() {
@@ -133,7 +166,11 @@ class Stage3 {
         }
       }
       if (this.player.getLane() == i) {
-        this.player.show(this.keyIndex);
+        if (this.finishFlag < 2) {
+          this.player.showBack(this.finishFlag);
+        } else {
+          this.player.show(this.keyIndex);
+        }
       }
     }
   }
@@ -156,6 +193,14 @@ class Stage3 {
       }
     }
     return res;
+  }
+
+  count1Sec(){
+    if(millis() >= this.timeStandard + 1000) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 
