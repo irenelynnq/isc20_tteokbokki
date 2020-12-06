@@ -15,6 +15,7 @@ class Stage3 {
     this.sorryTime = 0;
     this.finishFlag = 2;
     this.timeStandard = 0;
+    this.personTime = 0;
   }
 
   ready(){
@@ -30,6 +31,7 @@ class Stage3 {
     this.isSorry = false;
     this.sorryTime = 0;
     this.finishFlag = 2;
+    this.personTime = millis();
     displayButton();
   }
 
@@ -70,8 +72,9 @@ class Stage3 {
     if (this.isSorry) {
       this.displaySorry();
     }
-    if (frameCount % 400 == 0) {
+    if (millis() >= this.personTime + 6000) {
       //generate random person
+      this.personTime = millis();
       let lane = int(random(0, 3));
       this.people[lane].push(new Person(this.personId, lane, int(random(3)), random(0.5, 0.7)));
       this.personId += 1;
@@ -168,6 +171,8 @@ class Stage3 {
       if (this.player.getLane() == i) {
         if (this.finishFlag < 2) {
           this.player.showBack(this.finishFlag);
+        } else if(this.isSorry) {
+          this.player.showSorry();
         } else {
           this.player.show(this.keyIndex);
         }
@@ -208,13 +213,13 @@ class Stage3 {
     fill(255);
     textAlign(LEFT);
     text("죄송합니다...", 80, 560);
-    if (frameCount - this.sorryTime >= 200) {
+    if (millis() - this.sorryTime >= 2000) {
       this.isSorry = false;
     }
   }
 
   saySorry() {
     this.isSorry = true;
-    this.sorryTime = frameCount;
+    this.sorryTime = millis();
   }
 }
