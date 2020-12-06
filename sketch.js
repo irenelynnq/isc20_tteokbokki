@@ -2,12 +2,14 @@
 const statMain = 0;
 const statTutorial1 = 1;
 const statStage1 = 2;
-const statTutorial2 = 3;
-const statStage2 = 4;
-const statTutorial3 = 5;
-const statStage3 = 6;
-const statFinished = 7;
-const statFail = 8;
+const statFinishedStage1 = 3;
+const statTutorial2 = 4;
+const statStage2 = 5;
+const statTutorial3 = 6;
+const statStage3 = 7;
+const statFinishedStage3 = 8;
+const statFinished = 9;
+const statFail = 10;
 
 let gameStat;
 let giveupButtonNormal;
@@ -23,6 +25,7 @@ let playing = false;
 //data tables
 let thinkTable;
 let sequenceTable;
+let fullSequenceTable;
 
 
 //for stage1
@@ -124,6 +127,9 @@ function draw() {
     case statStage3:
       stage3.drawStage3();
       drawGiveupButton();
+      break;
+    case statFinishedStage3:
+      stage3.drawStage3Finished();
       break;
     case statFinished:
       background(220);
@@ -272,6 +278,7 @@ function preloadEtc() {
 function preloadData() {
   thinkTable = loadTable('assets/stage1/thinkList.csv', 'csv', 'header', loadThink);
   sequenceTable = loadTable('assets/stage3/sequenceList.csv', 'csv', 'header', loadSequence);
+  fullSequenceTable = loadTable('assets/stage3/fullSequenceList.csv', 'csv', 'header', loadFullSequence);
 }
 
 function preloadImages() {
@@ -310,5 +317,11 @@ function loadSequence() {
   for (let r = 0; r < sequenceTable.getRowCount(); r++) {
     stage3.sequence.push(sequenceTable.getString(r, 1));
     stage3.sequenceE.push(sequenceTable.getString(r, 2));
+  }
+}
+
+function loadFullSequence(){
+  for (let r = 0; r < fullSequenceTable.getRowCount(); r++) {
+    stage3.sequenceFull.push(fullSequenceTable.getString(r, 1));
   }
 }

@@ -8,6 +8,7 @@ class Stage3 {
     this.collidedPeople = [];
     this.sequence = [];
     this.sequenceE = [];
+    this.sequenceFull = [];
     this.keyIndex = 0;
     this.personId = 0;
     this.player = new Player();
@@ -16,6 +17,7 @@ class Stage3 {
     this.finishFlag = 2;
     this.timeStandard = 0;
     this.personTime = 0;
+    this.fullSequenceIndex = 0;
   }
 
   ready(){
@@ -32,10 +34,11 @@ class Stage3 {
     this.sorryTime = 0;
     this.finishFlag = 2;
     this.personTime = millis();
+    this.fullSequenceIndex = 0;
   }
 
   finish(){
-    gameStat = statFinished;
+    gameStat = statFinishedStage3;
   }
 
   drawStage3() {
@@ -49,12 +52,12 @@ class Stage3 {
     if (this.player.getPos() >= goal && this.player.getY() == lane0) {
       switch (this.finishFlag) {
         case 0:
-          if(this.count1Sec()) {
+          if(this.countSec(1)) {
             this.finish();
           }
           break;
         case 1:
-          if(this.count1Sec()) {
+          if(this.countSec(1)) {
             this.timeStandard = millis();
             this.finishFlag -= 1;
           }
@@ -119,7 +122,7 @@ class Stage3 {
       textSize(30);
       textFont(momletterB);
       fill(255);
-      text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX(), this.player.getY() - 90);
+      text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX(), this.player.getY() - 110);
     }
     textFont(momletter);
 
@@ -198,8 +201,8 @@ class Stage3 {
     return res;
   }
 
-  count1Sec(){
-    if(millis() >= this.timeStandard + 1000) {
+  countSec(s){
+    if(millis() >= this.timeStandard + (s * 1000)) {
       return true;
     } else {
       return false;
@@ -219,5 +222,26 @@ class Stage3 {
   saySorry() {
     this.isSorry = true;
     this.sorryTime = millis();
+  }
+
+  drawStage3Finished(){
+    background(0);
+    textAlign(CENTER, TOP);
+    textSize(32);
+    fill(255);
+    if(this.fullSequenceIndex == this.sequenceFull.length) {
+      this.timeStandard = millis();
+      text(this.sequenceFull[this.sequenceFull.length - 1], 80, 100, 800, 400);
+    } else if (this.fullSequenceIndex > this.sequenceFull.length) {
+      text(this.sequenceFull[this.sequenceFull.length - 1], 80, 100, 800, 400);
+      if(this.countSec(3)) {
+        gameStat = statFinished;
+      }
+    } else {
+      text(this.sequenceFull[this.fullSequenceIndex], 80, 100, 800, 400);
+    }
+    if(frameCount % 10 == 0) {
+      this.fullSequenceIndex += 1;
+    }
   }
 }
