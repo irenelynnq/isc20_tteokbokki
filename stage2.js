@@ -145,6 +145,8 @@ drawStage2() {
 
         tint(this.buttonRight[this.buttonNum].tint);
         this.buttonRight[this.buttonNum].show();
+
+        tint(255);
       }
     }
 }
