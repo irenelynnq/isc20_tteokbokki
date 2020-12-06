@@ -56,6 +56,7 @@ let start = 80;
 let playerSpeed = 6.5;
 let happinessWalkImages;
 let happinessBackImages;
+let happinessSorryImage;
 let passerbyImages;
 let passerbyAImages;
 let passerbyBImages;
@@ -269,6 +270,7 @@ function preloadImages() {
   passerbyImages.push(passerbyCImages);
   happinessBackImages.push(loadImage('assets/stage3/HappinessBack1.png'));
   happinessBackImages.push(loadImage('assets/stage3/HappinessBack2.png'));
+  happinessSorryImage = loadImage('assets/stage3/HappinessSorry.png');
 
   //for stage2
   buttonImg = loadImage('assets/stage2/WillButtonTest.png');

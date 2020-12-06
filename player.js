@@ -40,6 +40,11 @@ class Player {
     image(happinessBackImages[index], this.x, this.y);
   }
 
+  showSorry(){
+    imageMode(CENTER);
+    image(happinessSorryImage, this.x, this.y);
+  }
+
   go(){
     if (this.pos + this.speed < goal){
       this.pos += this.speed;
