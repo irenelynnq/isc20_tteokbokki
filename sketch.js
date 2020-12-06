@@ -32,6 +32,7 @@ let fullSequenceTable;
 let stage1;
 let stage1Time;
 let stage1Background;
+let stage1FinishedImage;
 
 
 //for stage2
@@ -115,6 +116,9 @@ function draw() {
       stage1.drawStage1();
       drawGiveupButton();
       break;
+    case statFinishedStage1:
+      stage1.drawStage1Finished();
+      break;
     case statTutorial2:
       displayTutorial(2);
       break;
@@ -188,6 +192,11 @@ function keyPressed() {
       break;
     case statStage1:
       stage1.keyPressedStage1();
+      break;
+    case statFinishedStage1:
+      if (keyCode === ENTER) {
+        gameStat = statTutorial2;
+      }
       break;
     case statTutorial2:
       if (keyCode === ENTER) {
@@ -284,6 +293,7 @@ function preloadData() {
 
 function preloadImages() {
   stage1Background = loadImage('assets/stage1/Stage1Background.png');
+  stage1FinishedImage = loadImage('assets/stage1/Stage1Clear.png');
   stage3Background = loadImage('assets/stage3/Stage3Background.png');
   for (let i = 1; i < 9; i++) {
     happinessWalkImages.push(loadImage('assets/stage3/happinessWalk/HappinessWalk' + i + '.png'));

@@ -19,7 +19,7 @@ class Stage1 {
 
   finish(){
     this.hideInput();
-    gameStat = statTutorial2;
+    gameStat = statFinishedStage1;
   }
 
   thinkOn(){
@@ -67,6 +67,10 @@ class Stage1 {
 
   displayInput(){
     this.input.position(65, 540);
+  }
+
+  drawStage1Finished(){
+    image(stage1FinishedImage, 0, 0, 960, 600);
   }
 
 }
