@@ -228,27 +228,37 @@ class Stage3 {
 
   drawStage3Finished(){
     //rectMode(CORNER);
-    background(0);
+    image(stage3FinishBackground, 0, 0);
     let s;
-    //textAlign(LEFT, TOP);
-    textSize(32);
+    textAlign(LEFT, TOP);
+    textFont(momletterB);
+    textSize(40);
     fill(255);
     if(this.fullSequenceIndex == this.sequenceFull.length) {
       this.timeStandard = millis();
-      s = this.sequenceFull[this.sequenceFull.length - 1];
-      text(s, 80, 100, 100, 100);
+      this.writeSentence(this.sequenceFull[this.sequenceFull.length - 1]);
     } else if (this.fullSequenceIndex > this.sequenceFull.length) {
-      s = this.sequenceFull[this.sequenceFull.length - 1];
-      text(s, 80, 100, 100, 100);
+      this.writeSentence(this.sequenceFull[this.sequenceFull.length - 1]);
       if(this.countSec(3)) {
         gameStat = statFinished;
+        textFont(momletter);
       }
     } else {
-      s = this.sequenceFull[this.fullSequenceIndex];
-      text(s, 80, 100, 100, 100);
+      this.writeSentence(this.sequenceFull[this.fullSequenceIndex]);
     }
-    if(frameCount % 10 == 0) {
+    if(frameCount % 5 == 0) {
       this.fullSequenceIndex += 1;
     }
   }
+
+  writeSentence(str){
+    let limit = int(str.length / charMax);
+    for (let i = 0; i < limit; i++) {
+      let sub = str.substring(constrain(i * charMax, 0, str.length), constrain((i+1) * charMax, 0, str.length));
+      text(sub, 166.5, i * 50 + 76.5);
+    }
+    let sub = str.substring(limit * charMax, str.length);
+    text(sub, 166.5, limit * 50 + 76.5);
+  }
+
 }
