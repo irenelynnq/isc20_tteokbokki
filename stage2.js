@@ -14,7 +14,13 @@ constructor() {
   }
 
 ready() {
+    this.buttonLeft = [];
+    this.buttonRight = [];
+    this.texts = [];
+    this.buttonNum = 0;
+    this.textShow = false;
     this.time = millis();
+    this.clouds = [];
     //
     this.texts.push(' ');
     this.texts.push('아...씻어야되는데...');
