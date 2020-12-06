@@ -3,9 +3,12 @@ class Stage2 {
 constructor() {
     this.buttonLeft = [];
     this.buttonRight = [];
-    this.texts = [];
+    this.text1 = [];
+    this.text2 = [];
     this.buttonNum = 0;
-    this.textShow = false;
+    //this.textShow = false;
+    this.textLeft = false;
+    this.textRight = false;
     //처음 버튼 뜨는 시간
     this.timedue = 1;
     this.time = 0;
@@ -16,23 +19,39 @@ constructor() {
 ready() {
     this.buttonLeft = [];
     this.buttonRight = [];
-    this.texts = [];
+    this.text1 = [];
+    this.text2 = [];
     this.buttonNum = 0;
-    this.textShow = false;
+    //this.textShow = false;
+    this.textLeft = false;
+    this.textRight = false;
+    //
     this.time = millis();
     this.clouds = [];
     //
-    this.texts.push(' ');
-    this.texts.push('아...씻어야되는데...');
-    this.texts.push('도저히 일어날 힘이 없어......');
-    this.texts.push('안행복 핸드폰 그만 봐. 몇 시간 째 이러는 거야 대체.');
-    this.texts.push('아... 그냥 침대 밑으로 빨려들어가 사라지고 싶다...');
-    this.texts.push('뭘까... 이대로 없어져도 전혀 안 이상할 것 같은 기분.');
-    this.texts.push('그치만 천장만 본다고 달라지는건 아무것도 없어.');
-    this.texts.push('너무 오래 누워있었더니 어지럽다... 지금 몇 시지?');
-    this.texts.push('자, 하나둘셋 하면 일어나는 거야 안행복.');
-    this.texts.push('근데 내가 과연 떡볶이를 먹을 자격이 있나...');
-    this.texts.push('몰라. 일단 먹고 생각할래.');
+    this.text1.push(' ');
+    this.text1.push('아...씻어야되는데...');
+    this.text1.push('도저히 일어날 힘이 없어......');
+    this.text1.push('안행복 핸드폰 그만 봐. 몇 시간 째 이러는 거야 대체.');
+    this.text1.push('아... 그냥 침대 밑으로 빨려들어가 사라지고 싶다...');
+    this.text1.push('뭘까... 이대로 없어져도 전혀 안 이상할 것 같은 기분.');
+    this.text1.push('그치만 천장만 본다고 달라지는건 아무것도 없어.');
+    this.text1.push('너무 오래 누워있었더니 어지럽다... 지금 몇 시지?');
+    this.text1.push('자, 하나둘셋 하면 일어나는 거야 안행복.');
+    this.text1.push('근데 내가 과연 떡볶이를 먹을 자격이 있나...');
+    this.text1.push('몰라. 일단 먹고 생각할래.');
+    //
+    this.text2.push(' ');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
+    this.text2.push('right button');
     //
     afterImg = bed3;
     //구름 제작
@@ -68,7 +87,7 @@ countdown() {
 }
 
 mousePressed2() {
-  if (this.buttonLeft[this.buttonNum].contains() ||
+ /*  if (this.buttonLeft[this.buttonNum].contains() ||
   this.buttonRight[this.buttonNum].contains() ) {
      this.buttonLeft[this.buttonNum].showOff();
      this.buttonRight[this.buttonNum].showOff();
@@ -81,7 +100,32 @@ mousePressed2() {
        this.timedue = 2;
 
      this.buttonNum++;
-   }
+   }*/
+  if(this.buttonLeft[this.buttonNum].contains()) {
+    this.buttonLeft[this.buttonNum].showOff();
+    this.buttonRight[this.buttonNum].showOff();
+
+    this.textLeft = true;
+
+    if (this.buttonNum < 9) {
+      this.timedue = 2;
+    } else if (this.buttonNum == 9)
+      this.timedue = 2;
+
+    this.buttonNum++;
+  } else if(this.buttonRight[this.buttonNum].contains()) {
+     this.buttonLeft[this.buttonNum].showOff();
+     this.buttonRight[this.buttonNum].showOff();
+
+    this.textRight = true;
+
+    if (this.buttonNum < 9) {
+      this.timedue = 2;
+    } else if (this.buttonNum == 9)
+      this.timedue = 2;
+
+    this.buttonNum++;
+  }
 }
 
 afterEffect() {
@@ -97,13 +141,22 @@ afterEffect() {
      this.finish();
    }
 }
-messageShow() {
+messageShowLeft() {
     noStroke();
     fill(100);
     textSize(20);
     textAlign(RIGHT);
     textFont(momletter);
-    text(this.texts[this.buttonNum], 945, 65);
+    text(this.text1[this.buttonNum], 945, 65);
+}
+
+messageShowRight() {
+  noStroke();
+  fill(100);
+  textSize(20);
+  textAlign(RIGHT);
+  textFont(momletter);
+  text(this.text2[this.buttonNum], 945, 65);
 }
 drawStage2() {
   background(191, 228, 242);
@@ -142,8 +195,10 @@ drawStage2() {
         this.afterEffect();
       }
     } else {
-      if(this.textShow == true) {
-        this.messageShow();
+      if(this.textLeft == true) {
+        this.messageShowLeft();
+      } else if (this.textRight == true) {
+        this.messageShowRight();
       }
       if(this.countdown()) {
         tint(this.buttonLeft[this.buttonNum].tint);
