@@ -32,26 +32,26 @@ ready() {
     this.text1.push(' ');
     this.text1.push('근데 도저히 일어날 힘이 없어...');
     this.text1.push('맞아... 그치만 못 일어나겠어 정말...');
-    this.text1.push('아... 그냥 침대 밑으로 빨려들어가 사라지고 싶다...');
-    this.text1.push('아무래도 나 정말 제정신이 아닌 것 같아...');
+    this.text1.push('아... 그냥 침대 밑으로 빨려들어가 사라지고 싶다.');
+    this.text1.push('그러게... 나 정말 제정신이 아닌 것 같아...');
     this.text1.push('그래 이것만 보고...');
     this.text1.push('이것만......');
-    this.text1.push('그래 일단 이불이라도 걷어차보자.');
-    this.text1.push('너무 오래 누워있어서 어지러워... 지금 몇 시지?');
+    this.text1.push('조급해하지마. 일단 이불이라도 걷었으니까...');
+    this.text1.push('음... 급하게 일어나니 어지러운데 다시 누울까...');
     this.text1.push('근데 내가 과연 떡볶이를 먹을 자격이 있나...');
-    this.text1.push('몰라. 일단 먹고 생각할래.');
+    this.text1.push('그래, 가자.');
     //
     this.text2.push(' ');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
-    this.text2.push('right button');
+    this.text2.push('아... 그치만 씻어야되는데...');
+    this.text2.push('아니, 넌 아무래도 그럴 마음이 없는 것 같아.');
+    this.text2.push('그래서 어제도 그렇게 1시간을 더 누워있었지.');
+    this.text2.push('핑계 대지마 제발. 넌 그냥 게으를 뿐이야.');
+    this.text2.push('아무래도 미쳤구나 너... 이럴거면 왜 살지?');
+    this.text2.push('근데 그럼 슬퍼해줄 사람은 있을까.');
+    this.text2.push('안되겠다. 넌 이불 덮고 있을 자격도 없어.');
+    this.text2.push('제발. 천장만 본다고 달라지는건 아무것도 없어.');
+    this.text2.push('안돼. 제발 1분만이라도 인내라는 걸 좀 해봐.');
+    this.text2.push('몰라. 일단 먹고 생각할래.');
     //
     afterImg = bed3;
     //구름 제작
@@ -106,6 +106,7 @@ mousePressed2() {
     this.buttonRight[this.buttonNum].showOff();
 
     this.textLeft = true;
+    this.textRight = false;
 
     if (this.buttonNum < 9) {
       this.timedue = 2;
@@ -118,6 +119,7 @@ mousePressed2() {
      this.buttonRight[this.buttonNum].showOff();
 
     this.textRight = true;
+    this.textLeft = false;
 
     if (this.buttonNum < 9) {
       this.timedue = 2;
@@ -144,19 +146,19 @@ afterEffect() {
 messageShowLeft() {
     noStroke();
     fill(100);
-    textSize(20);
-    textAlign(RIGHT);
+    textSize(25);
+    textAlign(LEFT);
     textFont(momletter);
-    text(this.text1[this.buttonNum], 945, 65);
+    text(this.text1[this.buttonNum], 434, 61);
 }
 
 messageShowRight() {
   noStroke();
   fill(100);
-  textSize(20);
-  textAlign(RIGHT);
+  textSize(25);
+  textAlign(LEFT);
   textFont(momletter);
-  text(this.text2[this.buttonNum], 945, 65);
+  text(this.text2[this.buttonNum], 434, 61);
 }
 drawStage2() {
   background(191, 228, 242);
@@ -186,10 +188,14 @@ drawStage2() {
       //background(img);
       noStroke();
       fill(100);
-      textSize(20);
-      textAlign(RIGHT);
+      textSize(25);
+      textAlign(LEFT);
       textFont(momletter);
-      text("몰라.일단 먹고 생각할래.", 945, 65);
+      if(this.textLeft) {
+      text("그래, 가자.", 434, 61);
+    } else if (this.textRight) {
+      text("몰라. 일단 먹고 생각할래.", 434, 61);
+    }
 
       if(this.countdown()) {
         this.afterEffect();
