@@ -1,15 +1,17 @@
 //global variables
-const statMain = 0;
-const statTutorial1 = 1;
-const statStage1 = 2;
-const statFinishedStage1 = 3;
-const statTutorial2 = 4;
-const statStage2 = 5;
-const statTutorial3 = 6;
-const statStage3 = 7;
-const statFinishedStage3 = 8;
-const statFinished = 9;
-const statFail = 10;
+const statWarning = 0;
+const statMain = 1;
+const statIntro = 2;
+const statTutorial1 = 3;
+const statStage1 = 4;
+const statFinishedStage1 = 5;
+const statTutorial2 = 6;
+const statStage2 = 7;
+const statTutorial3 = 8;
+const statStage3 = 9;
+const statFinishedStage3 = 10;
+const statEnding = 11;
+const statGiveup = 12;
 
 let gameStat;
 let giveupButtonNormal;
@@ -17,6 +19,7 @@ let giveupButtonHover;
 
 let tutorialImages;
 let mainImage;
+let warningImage;
 let momletter;
 let momletterB;
 let bgm;
@@ -69,6 +72,13 @@ let stage3Background;
 let sorryBox;
 let stage3FinishBackground;
 
+//for story
+let introImages;
+let giveupImages;
+let endingImages;
+let timeCounter;
+let imageIndex;
+
 function preload() {
   happinessWalkImages = [];
   happinessBackImages = [];
@@ -76,6 +86,9 @@ function preload() {
   passerbyAImages = [];
   passerbyBImages = [];
   passerbyCImages = [];
+  introImages = [];
+  giveupImages = [];
+  endingImages = [];
   stage1 = new Stage1();
 
   stage2 = new Stage2();
@@ -94,7 +107,7 @@ function preload() {
 function setup() {
   createCanvas(960, 600);
   textFont(momletter);
-  gameStat = statMain;
+  gameStat = statWarning;
   // giveupButton = createButton('포기하기');
   // giveupButton.size(110, 40);
   // giveupButton.mousePressed(giveup);
@@ -104,9 +117,15 @@ function setup() {
 function draw() {
   // background(225);
   switch (gameStat) {
+    case statWarning:
+      displayWarning();
+      break;
     case statMain:
       background(255);
       displayMain();
+      break;
+    case statIntro:
+      drawIntro();
       break;
     case statTutorial1:
       displayTutorial(1);
@@ -135,19 +154,11 @@ function draw() {
     case statFinishedStage3:
       stage3.drawStage3Finished();
       break;
-    case statFinished:
-      background(220);
-      fill(0);
-      textAlign(CENTER);
-      textSize(48);
-      text("떡볶이를 먹었습니다!\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
+    case statEnding:
+      drawEnding();
       break;
-    case statFail:
-      background(220);
-      fill(0);
-      textAlign(CENTER);
-      textSize(48);
-      text("떡볶이를 먹지 못했습니다.\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
+    case statGiveup:
+      drawGiveup();
       break;
   }
 }
@@ -167,19 +178,35 @@ function mousePressed() {
 //
 function keyPressed() {
   switch (gameStat) {
+    case statWarning:
+      if (keyCode === ENTER) {
+        gameStat = statMain;
+      }
+      break;
     case statMain:
       if (keyCode === ENTER) {
         if(!playing && bgm.isLoaded()) {
           playing = true;
           bgm.loop();
         }
-        gameStat = statTutorial1;
+        imageIndex = 0;
+        gameStat = statIntro;
       } else if (key == '1') {
         gameStat = statTutorial1;
       } else if (key == '2') {
         gameStat = statTutorial2;
       } else if (key == '3') {
         gameStat = statTutorial3;
+      }
+      break;
+    case statIntro:
+      if (keyCode === ENTER){
+        if (imageIndex < introImages.length - 1) {
+          imageIndex += 1;
+        } else if (imageIndex == introImages.length - 1) {
+          gameStat = statTutorial1;
+          imageIndex = 0;
+        }
       }
       break;
     case statTutorial1:
@@ -217,15 +244,26 @@ function keyPressed() {
     case statStage3:
       stage3.keyPressedStage3();
       break;
-    case statFinished:
-      if (keyCode === ENTER) {
-        gameStat = statMain;
+    case statEnding:
+      if (keyCode === ENTER){
+        if (imageIndex < endingImages.length - 1) {
+          imageIndex += 1;
+          if (imageIndex == endingImages.length - 1) {
+            //last image
+            timeCounter = millis();
+          }
+        }
       }
       break;
-    case statFail:
-      if (keyCode === ENTER) {
-        tint(255);
-        gameStat = statMain;
+    case statGiveup:
+      if (keyCode === ENTER){
+        if (imageIndex < giveupImages.length - 1) {
+          imageIndex += 1;
+          if (imageIndex == giveupImages.length - 1) {
+            //last image
+            timeCounter = millis();
+          }
+        }
       }
       break;
   }
@@ -240,6 +278,38 @@ function displayTutorial(stage) {
 function displayMain() {
   imageMode(CORNER);
   image(mainImage, 0, 0);
+}
+
+function displayWarning() {
+  imageMode(CORNER);
+  image(warningImage, 0, 0);
+}
+
+function drawIntro(){
+  imageMode(CORNER);
+  image(introImages[imageIndex], 0, 0);
+}
+
+function drawGiveup(){
+  imageMode(CORNER);
+  image(giveupImages[imageIndex], 0, 0);
+  if(imageIndex == giveupImages.length - 1) {
+    if(countSec(2, timeCounter)) {
+      gameStat = statMain;
+      imageIndex = 0;
+    }
+  }
+}
+
+function drawEnding(){
+  imageMode(CORNER);
+  image(endingImages[imageIndex], 0, 0);
+  if(imageIndex == endingImages.length - 1) {
+    if(countSec(2, timeCounter)) {
+      gameStat = statMain;
+      imageIndex = 0;
+    }
+  }
 }
 
 function drawGiveupButton(){
@@ -261,11 +331,19 @@ function drawGiveupButton(){
 //   giveupButton.position(-999, -999);
 // }
 
+function countSec(sec, standard){
+  if(millis() >= standard + (sec * 1000)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function giveup() {
   if (gameStat == statStage1) {
     stage1.hideInput();
   }
-  gameStat = statFail;
+  gameStat = statGiveup;
   //hideButton();
 }
 
@@ -291,6 +369,14 @@ function preloadData() {
 }
 
 function preloadImages() {
+  warningImage = loadImage('assets/etc/Warning.png');
+  for(let i = 1; i < 7; i++) {
+    introImages.push(loadImage('assets/cutScene/Intro' + i + '.png'));
+  }
+  for(let i = 1; i < 10; i++) {
+    giveupImages.push(loadImage('assets/cutScene/GiveUp' + i + '.png'));
+    endingImages.push(loadImage('assets/cutScene/Ending' + i + '.png'));
+  }
   stage1Background = loadImage('assets/stage1/Stage1Background.png');
   stage1FinishedImage = loadImage('assets/stage1/Stage1Clear.png');
   stage3Background = loadImage('assets/stage3/Stage3Background.png');

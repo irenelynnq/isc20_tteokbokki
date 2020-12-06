@@ -52,12 +52,12 @@ class Stage3 {
     if (this.player.getPos() >= goal && this.player.getY() == lane0) {
       switch (this.finishFlag) {
         case 0:
-          if(this.countSec(1)) {
+          if(countSec(1, this.timeStandard)) {
             this.finish();
           }
           break;
         case 1:
-          if(this.countSec(1)) {
+          if(countSec(1, this.timeStandard)) {
             this.timeStandard = millis();
             this.finishFlag -= 1;
           }
@@ -201,15 +201,6 @@ class Stage3 {
     return res;
   }
 
-  countSec(s){
-    if(millis() >= this.timeStandard + (s * 1000)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-
   displaySorry() {
     // fill(255);
     // textAlign(LEFT);
@@ -239,8 +230,8 @@ class Stage3 {
       this.writeSentence(this.sequenceFull[this.sequenceFull.length - 1]);
     } else if (this.fullSequenceIndex > this.sequenceFull.length) {
       this.writeSentence(this.sequenceFull[this.sequenceFull.length - 1]);
-      if(this.countSec(3)) {
-        gameStat = statFinished;
+      if(countSec(3, this.timeStandard)) {
+        gameStat = statEnding;
         textFont(momletter);
       }
     } else {
