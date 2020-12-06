@@ -122,7 +122,7 @@ class Stage3 {
       textSize(30);
       textFont(momletterB);
       fill(255);
-      text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX(), this.player.getY() - 110);
+      text(this.sequence[i], (i - this.keyIndex) * 30 + this.player.getX(), this.player.getY() - 100);
     }
     textFont(momletter);
 
@@ -211,9 +211,11 @@ class Stage3 {
 
 
   displaySorry() {
-    fill(255);
-    textAlign(LEFT);
-    text("죄송합니다...", 80, 560);
+    // fill(255);
+    // textAlign(LEFT);
+    // text("죄송합니다...", 80, 560);
+    imageMode(CORNER);
+    image(sorryBox, this.player.getX() + 35, this.player.getY() - 50, 108, 27);
     if (millis() - this.sorryTime >= 2000) {
       this.isSorry = false;
     }

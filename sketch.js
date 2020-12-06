@@ -66,6 +66,7 @@ let passerbyAImages;
 let passerbyBImages;
 let passerbyCImages;
 let stage3Background;
+let sorryBox;
 
 
 function preload() {
@@ -296,6 +297,7 @@ function preloadImages() {
   happinessBackImages.push(loadImage('assets/stage3/HappinessBack1.png'));
   happinessBackImages.push(loadImage('assets/stage3/HappinessBack2.png'));
   happinessSorryImage = loadImage('assets/stage3/HappinessSorry.png');
+  sorryBox = loadImage('assets/stage3/SorryBox.png');
 
   //for stage2
   buttonImg = loadImage('assets/stage2/WillButtonTest.png');
