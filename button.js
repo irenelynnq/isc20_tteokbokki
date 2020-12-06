@@ -7,7 +7,7 @@ class Button {
   }
   show() {
   if(this.on) {
-  image(img, this.x, this.y);
+  image(buttonImg, this.x, this.y);
   if(this.contains())
    this.tint = 100;
   else

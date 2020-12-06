@@ -6,7 +6,7 @@ class Player {
     this.dia = 75;
     this.speed = playerSpeed;
   }
-  
+
   getPos(){
     return this.pos;
   }
@@ -28,26 +28,34 @@ class Player {
       return 2;
     }
   }
-  
-  
+
+
   show(index){
     imageMode(CENTER);
-    if(this.pos > semiGoal) {
-      image(happinessWalkImages[index % 8], this.x + (this.pos - semiGoal), this.y);
-    } else {
-      image(happinessWalkImages[index % 8], this.x, this.y);
-    }
-    
+    image(happinessWalkImages[index % 8], this.x, this.y);
   }
-  
+
+  showBack(index){
+    imageMode(CENTER);
+    image(happinessBackImages[index], this.x, this.y);
+  }
+
+  showSorry(){
+    imageMode(CENTER);
+    image(happinessSorryImage, this.x, this.y);
+  }
+
   go(){
     if (this.pos + this.speed < goal){
       this.pos += this.speed;
     } else {
       this.pos = goal;
     }
+    if (this.pos > semiGoal) {
+      this.x = start + (this.pos - semiGoal);
+    }
   }
-  
+
   up(){
     console.log("up");
     if (this.y == lane1) {
@@ -64,18 +72,18 @@ class Player {
       this.y = lane2;
     }
   }
-  
+
   isCollided(px, py){
-    if (dist(this.x, this.y, px, py) < this.dia) {
+    if (this.y == py && dist(this.x, this.y, px, py) < this.dia) {
       return true;
     } else {
       return false;
     }
   }
-  
+
   slowDown(){
     this.speed *= 0.9;
     console.log(this.speed);
   }
-  
+
 }

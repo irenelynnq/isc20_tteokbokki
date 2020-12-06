@@ -2,29 +2,37 @@
 const statMain = 0;
 const statTutorial1 = 1;
 const statStage1 = 2;
-const statTutorial2 = 3;
-const statStage2 = 4;
-const statTutorial3 = 5;
-const statStage3 = 6;
-const statFinished = 7;
-const statFail = 8;
+const statFinishedStage1 = 3;
+const statTutorial2 = 4;
+const statStage2 = 5;
+const statTutorial3 = 6;
+const statStage3 = 7;
+const statFinishedStage3 = 8;
+const statFinished = 9;
+const statFail = 10;
 
 let gameStat;
-let giveupButton;
+let giveupButtonNormal;
+let giveupButtonHover;
 
 let tutorialImages;
 let mainImage;
 let momletter;
+let momletterB;
+let bgm;
+let playing = false;
 
 //data tables
 let thinkTable;
 let sequenceTable;
+let fullSequenceTable;
 
 
 //for stage1
 let stage1;
 let stage1Time;
 let stage1Background;
+let stage1FinishedImage;
 
 
 //for stage2
@@ -39,7 +47,6 @@ let cloud1;
 const wait = 2000;
 let afterImg;
 
-
 //for stage3
 let stage3;
 const lane0 = 285;
@@ -51,15 +58,19 @@ let start = 80;
 //let playerSpeed = 20;
 let playerSpeed = 6.5;
 let happinessWalkImages;
+let happinessBackImages;
+let happinessSorryImage;
 let passerbyImages;
 let passerbyAImages;
 let passerbyBImages;
 let passerbyCImages;
 let stage3Background;
+let sorryBox;
 
 
 function preload() {
   happinessWalkImages = [];
+  happinessBackImages = [];
   passerbyImages = [];
   passerbyAImages = [];
   passerbyBImages = [];
@@ -74,6 +85,8 @@ function preload() {
   preloadImages();
   preloadTutorial();
   preloadData();
+  soundFormats('mp3', 'ogg');
+  bgm = loadSound('assets/etc/the woods silent partner.mp3');
 
 }
 
@@ -81,16 +94,17 @@ function setup() {
   createCanvas(960, 600);
   textFont(momletter);
   gameStat = statMain;
-  giveupButton = createButton('포기하기');
-  giveupButton.size(110, 40);
-  hideButton();
-  giveupButton.mousePressed(giveup);
+  // giveupButton = createButton('포기하기');
+  // giveupButton.size(110, 40);
+  // giveupButton.mousePressed(giveup);
+  //bgm.play();
 }
 
 function draw() {
-  background(220);
+  // background(225);
   switch (gameStat) {
     case statMain:
+      background(255);
       displayMain();
       break;
     case statTutorial1:
@@ -98,53 +112,89 @@ function draw() {
       break;
     case statStage1:
       stage1.drawStage1();
+      drawGiveupButton();
+      break;
+    case statFinishedStage1:
+      stage1.drawStage1Finished();
       break;
     case statTutorial2:
       displayTutorial(2);
       break;
     case statStage2:
       stage2.drawStage2();
+      drawGiveupButton();
       break;
     case statTutorial3:
       displayTutorial(3);
       break;
     case statStage3:
       stage3.drawStage3();
+      drawGiveupButton();
+      break;
+    case statFinishedStage3:
+      stage3.drawStage3Finished();
       break;
     case statFinished:
+      background(220);
       fill(0);
+      textAlign(CENTER);
+      textSize(48);
       text("떡볶이를 먹었습니다!\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
       break;
     case statFail:
+      background(220);
       fill(0);
+      textAlign(CENTER);
+      textSize(48);
       text("떡볶이를 먹지 못했습니다.\n처음부터 다시 하려면 엔터키를 누르세요.", width / 2, height / 2);
       break;
   }
 }
+
+
 //
 function mousePressed() {
-  if(gameStat == statStage2)
-  stage2.mousePressed2();
+  if(gameStat == statStage1 || gameStat == statStage2 || gameStat == statStage3) {
+    if(mouseX >= 805 && mouseX <=930 && mouseY >= 535 && mouseY <= 590) {
+      //giveupButton clicked
+      giveup();
+    } else if(gameStat == statStage2){
+      stage2.mousePressed2();
+    }
+  }
 }
 //
 function keyPressed() {
   switch (gameStat) {
     case statMain:
       if (keyCode === ENTER) {
+        if(!playing && bgm.isLoaded()) {
+          playing = true;
+          bgm.loop();
+        }
         gameStat = statTutorial1;
+      } else if (key == '1') {
+        gameStat = statTutorial1;
+      } else if (key == '2') {
+        gameStat = statTutorial2;
+      } else if (key == '3') {
+        gameStat = statTutorial3;
       }
       break;
     case statTutorial1:
       if (keyCode === ENTER) {
         stage1Time = frameCount;
-        gameStat = statStage1;
         stage1.ready();
-        stage1.displayInput();
-        displayButton();
+        gameStat = statStage1;
       }
       break;
     case statStage1:
       stage1.keyPressedStage1();
+      break;
+    case statFinishedStage1:
+      if (keyCode === ENTER) {
+        gameStat = statTutorial2;
+      }
       break;
     case statTutorial2:
       if (keyCode === ENTER) {
@@ -153,15 +203,14 @@ function keyPressed() {
       }
       break;
     case statStage2:
-      if (keyCode === ENTER) {
-        gameStat = statTutorial3;
-      }
+      // if (keyCode === ENTER) {
+      //   gameStat = statTutorial3;
+      // }
       break;
     case statTutorial3:
       if (keyCode === ENTER) {
         stage3.ready();
         gameStat = statStage3;
-        displayButton();
       }
       break;
     case statStage3:
@@ -174,6 +223,7 @@ function keyPressed() {
       break;
     case statFail:
       if (keyCode === ENTER) {
+        tint(255);
         gameStat = statMain;
       }
       break;
@@ -181,6 +231,7 @@ function keyPressed() {
 }
 
 function displayTutorial(stage) {
+  background(255);
   imageMode(CORNER);
   image(tutorialImages[stage - 1], 0, 0);
 }
@@ -190,20 +241,31 @@ function displayMain() {
   image(mainImage, 0, 0);
 }
 
-function displayButton() {
-  giveupButton.position(830, 540);
+function drawGiveupButton(){
+  if(mouseX >= 805 && mouseX <=930 && mouseY >= 535 && mouseY <= 590) {
+    //hover
+    imageMode(CORNER);
+    image(giveupButtonHover, 805, 535);
+  } else {
+    imageMode(CORNER);
+    image(giveupButtonNormal, 805, 535);
+  }
 }
 
-function hideButton() {
-  giveupButton.position(-999, -999);
-}
+// function displayButton() {
+//   giveupButton.position(830, 540);
+// }
+
+// function hideButton() {
+//   giveupButton.position(-999, -999);
+// }
 
 function giveup() {
   if (gameStat == statStage1) {
     stage1.hideInput();
   }
   gameStat = statFail;
-  hideButton();
+  //hideButton();
 }
 
 function preloadTutorial() {
@@ -216,15 +278,20 @@ function preloadTutorial() {
 function preloadEtc() {
   mainImage = loadImage('assets/etc/MainCover.png');
   momletter = loadFont('assets/etc/a엄마의편지M.ttf');
+  momletterB = loadFont('assets/etc/a엄마의편지B.ttf');
+  giveupButtonNormal = loadImage('assets/etc/giveupButton2.png');
+  giveupButtonHover = loadImage('assets/etc/giveupButton1.png');
 }
 
 function preloadData() {
   thinkTable = loadTable('assets/stage1/thinkList.csv', 'csv', 'header', loadThink);
   sequenceTable = loadTable('assets/stage3/sequenceList.csv', 'csv', 'header', loadSequence);
+  fullSequenceTable = loadTable('assets/stage3/fullSequenceList.csv', 'csv', 'header', loadFullSequence);
 }
 
 function preloadImages() {
   stage1Background = loadImage('assets/stage1/Stage1Background.png');
+  stage1FinishedImage = loadImage('assets/stage1/Stage1Clear.png');
   stage3Background = loadImage('assets/stage3/Stage3Background.png');
   for (let i = 1; i < 9; i++) {
     happinessWalkImages.push(loadImage('assets/stage3/happinessWalk/HappinessWalk' + i + '.png'));
@@ -235,6 +302,10 @@ function preloadImages() {
   passerbyImages.push(passerbyAImages);
   passerbyImages.push(passerbyBImages);
   passerbyImages.push(passerbyCImages);
+  happinessBackImages.push(loadImage('assets/stage3/HappinessBack1.png'));
+  happinessBackImages.push(loadImage('assets/stage3/HappinessBack2.png'));
+  happinessSorryImage = loadImage('assets/stage3/HappinessSorry.png');
+  sorryBox = loadImage('assets/stage3/SorryBox.png');
 
   //for stage2
   buttonImg = loadImage('assets/stage2/WillButtonTest.png');
@@ -256,5 +327,11 @@ function loadSequence() {
   for (let r = 0; r < sequenceTable.getRowCount(); r++) {
     stage3.sequence.push(sequenceTable.getString(r, 1));
     stage3.sequenceE.push(sequenceTable.getString(r, 2));
+  }
+}
+
+function loadFullSequence(){
+  for (let r = 0; r < fullSequenceTable.getRowCount(); r++) {
+    stage3.sequenceFull.push(fullSequenceTable.getString(r, 1));
   }
 }
