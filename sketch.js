@@ -41,6 +41,8 @@ let stage1FinishedImage;
 //for stage2
 let stage2;
 let buttonImg;
+let choiceA;
+let choiceB;
 let bed1;
 let bed2;
 let bed3;
@@ -89,6 +91,10 @@ function preload() {
   introImages = [];
   giveupImages = [];
   endingImages = [];
+  // for Stage 2
+  choiceA = [];
+  choiceB = [];
+  //
   stage1 = new Stage1();
 
   stage2 = new Stage2();
@@ -403,6 +409,10 @@ function preloadImages() {
   happy1 = loadImage('assets/stage2/HappinessLeaving1.png');
   happy2 = loadImage('assets/stage2/HappinessLeaving2.png');
   cloud1 = loadImage('assets/stage2/Cloud1.png');
+  /*for (let i = 0; i < 10; i++) {
+    choiceA.push(loadImage('assets/stage2/ChoiceA/ChoiceA' + i + '.png'));
+    choiceB.push(loadImage('assets/stage2/ChoiceB/ChoiceB' + i + '.png'));
+  }*/
 }
 
 function loadThink() {

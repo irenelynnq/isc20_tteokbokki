@@ -1,13 +1,14 @@
 class Button {
-  constructor(x, y) {
+  constructor(x, y, _image) {
     this.x = x;
     this.y = y;
     this.tint = 100;
     this.on = true;
+    this.img = _image;
   }
   show() {
   if(this.on) {
-  image(buttonImg, this.x, this.y);
+  image(this.img, this.x, this.y);
   if(this.contains())
    this.tint = 100;
   else

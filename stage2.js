@@ -69,8 +69,8 @@ ready() {
 }
 
 pushButton() {
-  let a1 = new Button(320, 550);
-  let a2 = new Button(640, 550);
+  let a1 = new Button(320, 550, buttonImg);
+  let a2 = new Button(640, 550, buttonImg);
   this.buttonLeft.push(a1);
   this.buttonRight.push(a2);
 }
