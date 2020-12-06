@@ -95,7 +95,7 @@ function preload() {
 function setup() {
   createCanvas(960, 600);
   textFont(momletter);
-  gameStat = statMain;
+  gameStat = statFinishedStage3;
   // giveupButton = createButton('포기하기');
   // giveupButton.size(110, 40);
   // giveupButton.mousePressed(giveup);
@@ -334,6 +334,6 @@ function loadSequence() {
 
 function loadFullSequence(){
   for (let r = 0; r < fullSequenceTable.getRowCount(); r++) {
-    stage3.sequenceFull.push(fullSequenceTable.getString(r, 1));
+    stage3.sequenceFull.push(fullSequenceTable.getString(r, 1).toString());
   }
 }

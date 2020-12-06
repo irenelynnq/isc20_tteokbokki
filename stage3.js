@@ -227,20 +227,25 @@ class Stage3 {
   }
 
   drawStage3Finished(){
+    //rectMode(CORNER);
     background(0);
-    textAlign(CENTER, TOP);
+    let s;
+    //textAlign(LEFT, TOP);
     textSize(32);
     fill(255);
     if(this.fullSequenceIndex == this.sequenceFull.length) {
       this.timeStandard = millis();
-      text(this.sequenceFull[this.sequenceFull.length - 1], 80, 100, 800, 400);
+      s = this.sequenceFull[this.sequenceFull.length - 1];
+      text(s, 80, 100, 100, 100);
     } else if (this.fullSequenceIndex > this.sequenceFull.length) {
-      text(this.sequenceFull[this.sequenceFull.length - 1], 80, 100, 800, 400);
+      s = this.sequenceFull[this.sequenceFull.length - 1];
+      text(s, 80, 100, 100, 100);
       if(this.countSec(3)) {
         gameStat = statFinished;
       }
     } else {
-      text(this.sequenceFull[this.fullSequenceIndex], 80, 100, 800, 400);
+      s = this.sequenceFull[this.fullSequenceIndex];
+      text(s, 80, 100, 100, 100);
     }
     if(frameCount % 10 == 0) {
       this.fullSequenceIndex += 1;
