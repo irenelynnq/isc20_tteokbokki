@@ -409,10 +409,10 @@ function preloadImages() {
   happy1 = loadImage('assets/stage2/HappinessLeaving1.png');
   happy2 = loadImage('assets/stage2/HappinessLeaving2.png');
   cloud1 = loadImage('assets/stage2/Cloud1.png');
-  /*for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i++) {
     choiceA.push(loadImage('assets/stage2/ChoiceA/ChoiceA' + i + '.png'));
     choiceB.push(loadImage('assets/stage2/ChoiceB/ChoiceB' + i + '.png'));
-  }*/
+  }
 }
 
 function loadThink() {

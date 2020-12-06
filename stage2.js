@@ -10,7 +10,7 @@ constructor() {
     this.textLeft = false;
     this.textRight = false;
     //처음 버튼 뜨는 시간
-    this.timedue = 1;
+    this.timedue = 2;
     this.time = 0;
     this.d = 0;
     this.clouds = [];
@@ -64,16 +64,17 @@ ready() {
    }
      //버튼 생성
    for(let i=0; i<10; i++) {
-     this.pushButton();
+     this.buttonLeft.push(new Button(52, 413, choiceA[i]));
+     this.buttonRight.push(new Button(52, 505, choiceB[i]));
    }
 }
 
-pushButton() {
-  let a1 = new Button(320, 550, buttonImg);
-  let a2 = new Button(640, 550, buttonImg);
+/*pushButton() {
+  let a1 = new Button(52, 413, choiceA[i]);
+  let a2 = new Button(52, 505, choiceB[i]);
   this.buttonLeft.push(a1);
   this.buttonRight.push(a2);
-}
+}*/
 
 countdown() {
     if(this.timedue>0 && frameCount % 60 == 0)
@@ -109,7 +110,7 @@ mousePressed2() {
     this.textRight = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 2;
+      this.timedue = 8;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
@@ -122,7 +123,7 @@ mousePressed2() {
     this.textLeft = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 2;
+      this.timedue = 8;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
@@ -197,9 +198,9 @@ drawStage2() {
       text("몰라. 일단 먹고 생각할래.", 434, 61);
     }
 
-      if(this.countdown()) {
+      //if(this.countdown()) {
         this.afterEffect();
-      }
+      //}
     } else {
       if(this.textLeft == true) {
         this.messageShowLeft();

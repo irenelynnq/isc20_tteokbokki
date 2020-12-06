@@ -22,7 +22,7 @@ showOff() {
 }
 
 contains() {
-     if((this.x<mouseX)&&(this.x + 30 >mouseX)&&(this.y<mouseY)&&(this.y + 30>mouseY))
+     if((this.x<mouseX)&&(this.x + 506 >mouseX)&&(this.y<mouseY)&&(this.y + 83>mouseY))
    return true;
   else
    return false;
