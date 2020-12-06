@@ -10,7 +10,8 @@ const statFinished = 7;
 const statFail = 8;
 
 let gameStat;
-let giveupButton;
+let giveupButtonNormal;
+let giveupButtonHover;
 
 let tutorialImages;
 let mainImage;
@@ -90,12 +91,10 @@ function setup() {
   createCanvas(960, 600);
   textFont(momletter);
   gameStat = statMain;
-  giveupButton = createButton('포기하기');
-  giveupButton.size(110, 40);
-  hideButton();
-  giveupButton.mousePressed(giveup);
+  // giveupButton = createButton('포기하기');
+  // giveupButton.size(110, 40);
+  // giveupButton.mousePressed(giveup);
   //bgm.play();
-
 }
 
 function draw() {
@@ -110,18 +109,21 @@ function draw() {
       break;
     case statStage1:
       stage1.drawStage1();
+      drawGiveupButton();
       break;
     case statTutorial2:
       displayTutorial(2);
       break;
     case statStage2:
       stage2.drawStage2();
+      drawGiveupButton();
       break;
     case statTutorial3:
       displayTutorial(3);
       break;
     case statStage3:
       stage3.drawStage3();
+      drawGiveupButton();
       break;
     case statFinished:
       background(220);
@@ -143,8 +145,14 @@ function draw() {
 
 //
 function mousePressed() {
-  if(gameStat == statStage2)
-  stage2.mousePressed2();
+  if(gameStat == statStage1 || gameStat == statStage2 || gameStat == statStage3) {
+    if(mouseX >= 830 && mouseX <=955 && mouseY >= 540 && mouseY <= 595) {
+      //giveupButton clicked
+      giveup();
+    } else if(gameStat == statStage2){
+      stage2.mousePressed2();
+    }
+  }
 }
 //
 function keyPressed() {
@@ -168,7 +176,6 @@ function keyPressed() {
       if (keyCode === ENTER) {
         stage1Time = frameCount;
         stage1.ready();
-        displayButton();
         gameStat = statStage1;
       }
       break;
@@ -177,7 +184,6 @@ function keyPressed() {
       break;
     case statTutorial2:
       if (keyCode === ENTER) {
-        displayButton();
         gameStat = statStage2;
         stage2.ready();
       }
@@ -190,7 +196,6 @@ function keyPressed() {
     case statTutorial3:
       if (keyCode === ENTER) {
         stage3.ready();
-        displayButton();
         gameStat = statStage3;
       }
       break;
@@ -222,20 +227,31 @@ function displayMain() {
   image(mainImage, 0, 0);
 }
 
-function displayButton() {
-  giveupButton.position(830, 540);
+function drawGiveupButton(){
+  if(mouseX >= 830 && mouseX <=955 && mouseY >= 540 && mouseY <= 595) {
+    //hover
+    imageMode(CORNER);
+    image(giveupButtonHover, 830, 540);
+  } else {
+    imageMode(CORNER);
+    image(giveupButtonNormal, 830, 540);
+  }
 }
 
-function hideButton() {
-  giveupButton.position(-999, -999);
-}
+// function displayButton() {
+//   giveupButton.position(830, 540);
+// }
+
+// function hideButton() {
+//   giveupButton.position(-999, -999);
+// }
 
 function giveup() {
   if (gameStat == statStage1) {
     stage1.hideInput();
   }
   gameStat = statFail;
-  hideButton();
+  //hideButton();
 }
 
 function preloadTutorial() {
@@ -249,6 +265,8 @@ function preloadEtc() {
   mainImage = loadImage('assets/etc/MainCover.png');
   momletter = loadFont('assets/etc/a엄마의편지M.ttf');
   momletterB = loadFont('assets/etc/a엄마의편지B.ttf');
+  giveupButtonNormal = loadImage('assets/etc/giveupButton2.png');
+  giveupButtonHover = loadImage('assets/etc/giveupButton1.png');
 }
 
 function preloadData() {

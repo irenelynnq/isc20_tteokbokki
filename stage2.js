@@ -151,7 +151,6 @@ drawStage2() {
 
 finish() {
   gameStat = statTutorial3;
-  hideButton();
 }
 
 }

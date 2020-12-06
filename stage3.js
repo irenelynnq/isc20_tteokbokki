@@ -32,12 +32,10 @@ class Stage3 {
     this.sorryTime = 0;
     this.finishFlag = 2;
     this.personTime = millis();
-    displayButton();
   }
 
   finish(){
     gameStat = statFinished;
-    hideButton();
   }
 
   drawStage3() {
@@ -109,9 +107,9 @@ class Stage3 {
   drawBackground() {
     imageMode(CORNER);
     if (this.player.getPos() >= semiGoal) {
-      image(stage3Background, start - semiGoal, 0);
+      image(stage3Background, start - semiGoal, 0, 2880, 600);
     } else {
-      image(stage3Background, start - this.player.getPos(), 0);
+      image(stage3Background, start - this.player.getPos(), 0, 2880, 600);
     }
 
   }

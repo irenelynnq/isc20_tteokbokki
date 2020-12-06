@@ -20,7 +20,6 @@ class Stage1 {
   finish(){
     this.hideInput();
     gameStat = statTutorial2;
-    hideButton();
   }
 
   thinkOn(){
