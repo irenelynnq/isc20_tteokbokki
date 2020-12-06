@@ -227,23 +227,38 @@ class Stage3 {
   }
 
   drawStage3Finished(){
-    background(0);
-    textAlign(CENTER, TOP);
-    textSize(32);
+    //rectMode(CORNER);
+    image(stage3FinishBackground, 0, 0);
+    let s;
+    textAlign(LEFT, TOP);
+    textFont(momletterB);
+    textSize(40);
     fill(255);
     if(this.fullSequenceIndex == this.sequenceFull.length) {
       this.timeStandard = millis();
-      text(this.sequenceFull[this.sequenceFull.length - 1], 80, 100, 800, 400);
+      this.writeSentence(this.sequenceFull[this.sequenceFull.length - 1]);
     } else if (this.fullSequenceIndex > this.sequenceFull.length) {
-      text(this.sequenceFull[this.sequenceFull.length - 1], 80, 100, 800, 400);
+      this.writeSentence(this.sequenceFull[this.sequenceFull.length - 1]);
       if(this.countSec(3)) {
         gameStat = statFinished;
+        textFont(momletter);
       }
     } else {
-      text(this.sequenceFull[this.fullSequenceIndex], 80, 100, 800, 400);
+      this.writeSentence(this.sequenceFull[this.fullSequenceIndex]);
     }
-    if(frameCount % 10 == 0) {
+    if(frameCount % 5 == 0) {
       this.fullSequenceIndex += 1;
     }
   }
+
+  writeSentence(str){
+    let limit = int(str.length / charMax);
+    for (let i = 0; i < limit; i++) {
+      let sub = str.substring(constrain(i * charMax, 0, str.length), constrain((i+1) * charMax, 0, str.length));
+      text(sub, 166.5, i * 50 + 76.5);
+    }
+    let sub = str.substring(limit * charMax, str.length);
+    text(sub, 166.5, limit * 50 + 76.5);
+  }
+
 }

@@ -54,6 +54,7 @@ const lane1 = 380;
 const lane2 = 470;
 const goal = 2680;
 const semiGoal = 2000;
+const charMax = 18;
 let start = 80;
 //let playerSpeed = 20;
 let playerSpeed = 6.5;
@@ -66,7 +67,7 @@ let passerbyBImages;
 let passerbyCImages;
 let stage3Background;
 let sorryBox;
-
+let stage3FinishBackground;
 
 function preload() {
   happinessWalkImages = [];
@@ -93,7 +94,7 @@ function preload() {
 function setup() {
   createCanvas(960, 600);
   textFont(momletter);
-  gameStat = statMain;
+  gameStat = statFinishedStage3;
   // giveupButton = createButton('포기하기');
   // giveupButton.size(110, 40);
   // giveupButton.mousePressed(giveup);
@@ -293,6 +294,7 @@ function preloadImages() {
   stage1Background = loadImage('assets/stage1/Stage1Background.png');
   stage1FinishedImage = loadImage('assets/stage1/Stage1Clear.png');
   stage3Background = loadImage('assets/stage3/Stage3Background.png');
+  stage3FinishBackground = loadImage('assets/stage3/Stage3FinishBackground.png');
   for (let i = 1; i < 9; i++) {
     happinessWalkImages.push(loadImage('assets/stage3/happinessWalk/HappinessWalk' + i + '.png'));
     passerbyAImages.push(loadImage('assets/stage3/passerbyA/PasserbyA' + i + '.png'));
@@ -332,6 +334,6 @@ function loadSequence() {
 
 function loadFullSequence(){
   for (let r = 0; r < fullSequenceTable.getRowCount(); r++) {
-    stage3.sequenceFull.push(fullSequenceTable.getString(r, 1));
+    stage3.sequenceFull.push(fullSequenceTable.getString(r, 1).toString());
   }
 }
