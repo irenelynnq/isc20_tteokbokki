@@ -146,7 +146,7 @@ function draw() {
 //
 function mousePressed() {
   if(gameStat == statStage1 || gameStat == statStage2 || gameStat == statStage3) {
-    if(mouseX >= 830 && mouseX <=955 && mouseY >= 540 && mouseY <= 595) {
+    if(mouseX >= 805 && mouseX <=930 && mouseY >= 535 && mouseY <= 590) {
       //giveupButton clicked
       giveup();
     } else if(gameStat == statStage2){
@@ -228,13 +228,13 @@ function displayMain() {
 }
 
 function drawGiveupButton(){
-  if(mouseX >= 830 && mouseX <=955 && mouseY >= 540 && mouseY <= 595) {
+  if(mouseX >= 805 && mouseX <=930 && mouseY >= 535 && mouseY <= 590) {
     //hover
     imageMode(CORNER);
-    image(giveupButtonHover, 830, 540);
+    image(giveupButtonHover, 805, 535);
   } else {
     imageMode(CORNER);
-    image(giveupButtonNormal, 830, 540);
+    image(giveupButtonNormal, 805, 535);
   }
 }
 
