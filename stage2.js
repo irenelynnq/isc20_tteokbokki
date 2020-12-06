@@ -213,6 +213,7 @@ drawStage2() {
 }
 
 finish() {
+  tint(255);
   gameStat = statTutorial3;
 }
 
