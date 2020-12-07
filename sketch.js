@@ -300,7 +300,7 @@ function drawGiveup(){
   imageMode(CORNER);
   image(giveupImages[imageIndex], 0, 0);
   if(imageIndex == giveupImages.length - 1) {
-    if(countSec(2, timeCounter)) {
+    if(countSec(3, timeCounter)) {
       gameStat = statMain;
       imageIndex = 0;
     }
@@ -311,7 +311,7 @@ function drawEnding(){
   imageMode(CORNER);
   image(endingImages[imageIndex], 0, 0);
   if(imageIndex == endingImages.length - 1) {
-    if(countSec(2, timeCounter)) {
+    if(countSec(3, timeCounter)) {
       gameStat = statMain;
       imageIndex = 0;
     }
