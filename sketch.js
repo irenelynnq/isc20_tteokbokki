@@ -114,6 +114,7 @@ function setup() {
   createCanvas(960, 600);
   textFont(momletter);
   gameStat = statWarning;
+  imageIndex = 0;
   // giveupButton = createButton('포기하기');
   // giveupButton.size(110, 40);
   // giveupButton.mousePressed(giveup);
