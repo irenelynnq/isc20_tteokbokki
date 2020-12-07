@@ -12,7 +12,7 @@ class Button {
   if(this.contains())
    this.tint = 255;
   else
-   this.tint = 200;
+   this.tint = 210;
   }
 }
 
