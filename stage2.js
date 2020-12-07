@@ -51,7 +51,7 @@ ready() {
     this.text2.push('휴... 안되겠다. 넌 이불 덮고 있을 자격도 없어.');
     this.text2.push('제발. 천장만 본다고 달라지는건 아무것도 없어.');
     this.text2.push('안돼. 제발 1분만이라도 인내라는 걸 좀 해봐.');
-    this.text2.push('에잇, 몰라. 일단 먹고 생각할래.');
+    this.text2.push('아, 몰라. 일단 먹고 생각할래.');
     //
     afterImg = bed3;
     //구름 제작
@@ -110,7 +110,7 @@ mousePressed2() {
     this.textRight = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 4;
+      this.timedue = 8;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
@@ -123,7 +123,7 @@ mousePressed2() {
     this.textLeft = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 4;
+      this.timedue = 8;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
@@ -193,9 +193,9 @@ drawStage2() {
       textAlign(LEFT);
       textFont(momletterB);
       if(this.textLeft) {
-      text("그래, 가자.", 444, 79);
+      text("그래, 가자.", 741, 79);
     } else if (this.textRight) {
-      text("에잇, 몰라. 일단 먹고 생각할래.", 444, 79);
+      text("아, 몰라. 일단 먹고 생각할래.", 655, 79);
     }
 
       //if(this.countdown()) {
