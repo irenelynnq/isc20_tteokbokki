@@ -110,7 +110,7 @@ mousePressed2() {
     this.textRight = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 6;
+      this.timedue = 4;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
@@ -123,7 +123,7 @@ mousePressed2() {
     this.textLeft = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 6;
+      this.timedue = 4;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
