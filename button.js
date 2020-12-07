@@ -2,7 +2,7 @@ class Button {
   constructor(x, y, _image) {
     this.x = x;
     this.y = y;
-    this.tint = 100;
+    this.tint = 255;
     this.on = true;
     this.img = _image;
   }
@@ -10,7 +10,7 @@ class Button {
   if(this.on) {
   image(this.img, this.x, this.y);
   if(this.contains())
-   this.tint = 100;
+   this.tint = 255;
   else
    this.tint = 200;
   }
