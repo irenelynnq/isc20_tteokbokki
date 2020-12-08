@@ -105,6 +105,7 @@ function preload() {
   preloadImages();
   preloadTutorial();
   preloadData();
+  loadStage2();
   soundFormats('mp3', 'ogg');
   bgm = loadSound('assets/etc/the woods silent partner.mp3');
 
@@ -433,4 +434,30 @@ function loadFullSequence(){
   for (let r = 0; r < fullSequenceTable.getRowCount(); r++) {
     stage3.sequenceFull.push(fullSequenceTable.getString(r, 1).toString());
   }
+}
+
+function loadStage2(){
+  stage2.text1.push(' ');
+  stage2.text1.push('근데 도저히 일어날 힘이 없어...');
+  stage2.text1.push('맞아... 그치만 못 일어나겠어 정말...');
+  stage2.text1.push('몰라... 그냥 침대 밑으로 조용히 가라앉고 싶어.');
+  stage2.text1.push('그러게... 나 정말 제정신이 아닌 것 같아...');
+  stage2.text1.push('그래 이것만 보고...');
+  stage2.text1.push('이것만......');
+  stage2.text1.push('조급해하지말자. 일단 이불이라도 걷었으니까...');
+  stage2.text1.push('음... 급하게 일어나니 어지러운데 다시 누울까...');
+  stage2.text1.push('그나저나... 내가 지금 떡볶이를 먹을 자격이 있나...');
+  stage2.text1.push('그래, 가자.');
+  //
+  stage2.text2.push(' ');
+  stage2.text2.push('아... 그치만 씻어야되는데...');
+  stage2.text2.push('아니, 넌 아무래도 그럴 마음이 없는 것 같아.');
+  stage2.text2.push('그래서 어제도 그렇게 1시간을 더 누워있었지.');
+  stage2.text2.push('아니, 핑계 대지마 제발. 넌 그냥 게으를 뿐이야.');
+  stage2.text2.push('그럼 평생 누워있을거야? 아주 이대로 죽으려고?');
+  stage2.text2.push('근데 그럼 과연 슬퍼해줄 사람은 있을까...');
+  stage2.text2.push('휴... 안되겠다. 넌 이불 덮고 있을 자격도 없어.');
+  stage2.text2.push('제발. 천장만 본다고 달라지는건 아무것도 없어.');
+  stage2.text2.push('안돼. 제발 1분만이라도 인내라는 걸 좀 해봐.');
+  stage2.text2.push('아, 몰라. 일단 먹고 생각할래.');
 }

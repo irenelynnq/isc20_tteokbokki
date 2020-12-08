@@ -19,8 +19,8 @@ constructor() {
 ready() {
     this.buttonLeft = [];
     this.buttonRight = [];
-    this.text1 = [];
-    this.text2 = [];
+    // this.text1 = [];
+    // this.text2 = [];
     this.buttonNum = 0;
     //this.textShow = false;
     this.textLeft = false;
@@ -28,30 +28,6 @@ ready() {
     //
     this.time = millis();
     this.clouds = [];
-    //
-    this.text1.push(' ');
-    this.text1.push('근데 도저히 일어날 힘이 없어...');
-    this.text1.push('맞아... 그치만 못 일어나겠어 정말...');
-    this.text1.push('몰라... 그냥 침대 밑으로 조용히 가라앉고 싶어.');
-    this.text1.push('그러게... 나 정말 제정신이 아닌 것 같아...');
-    this.text1.push('그래 이것만 보고...');
-    this.text1.push('이것만......');
-    this.text1.push('조급해하지말자. 일단 이불이라도 걷었으니까...');
-    this.text1.push('음... 급하게 일어나니 어지러운데 다시 누울까...');
-    this.text1.push('그나저나... 내가 지금 떡볶이를 먹을 자격이 있나...');
-    this.text1.push('그래, 가자.');
-    //
-    this.text2.push(' ');
-    this.text2.push('아... 그치만 씻어야되는데...');
-    this.text2.push('아니, 넌 아무래도 그럴 마음이 없는 것 같아.');
-    this.text2.push('그래서 어제도 그렇게 1시간을 더 누워있었지.');
-    this.text2.push('아니, 핑계 대지마 제발. 넌 그냥 게으를 뿐이야.');
-    this.text2.push('그럼 평생 누워있을거야? 아주 이대로 죽으려고?');
-    this.text2.push('근데 그럼 과연 슬퍼해줄 사람은 있을까...');
-    this.text2.push('휴... 안되겠다. 넌 이불 덮고 있을 자격도 없어.');
-    this.text2.push('제발. 천장만 본다고 달라지는건 아무것도 없어.');
-    this.text2.push('안돼. 제발 1분만이라도 인내라는 걸 좀 해봐.');
-    this.text2.push('아, 몰라. 일단 먹고 생각할래.');
     //
     afterImg = bed3;
     //구름 제작
@@ -220,7 +196,7 @@ drawStage2() {
 }
 
 finish() {
-  tint(255);
+  noTint();
   gameStat = statTutorial3;
 }
 
