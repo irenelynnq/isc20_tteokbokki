@@ -27,6 +27,7 @@ class Think {
     if (this.on && frameCount > stage1Time + this.startTime) {
       angleMode(DEGREES);
       textAlign(CENTER);
+      fill(0);
       textSize(this.fontSize);
       push();
       translate(this.x, this.y);
