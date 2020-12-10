@@ -351,6 +351,7 @@ function giveup() {
   if (gameStat == statStage1) {
     stage1.hideInput();
   }
+  noTint();
   gameStat = statGiveup;
   //hideButton();
 }
