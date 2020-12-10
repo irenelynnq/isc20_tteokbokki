@@ -28,6 +28,8 @@ ready() {
     //
     this.time = millis();
     this.clouds = [];
+    this. d = 0;
+
     //
     afterImg = bed3;
     //구름 제작
@@ -78,6 +80,7 @@ mousePressed2() {
 
      this.buttonNum++;
    }*/
+  if(this.buttonLeft[this.buttonNum].showing && this.buttonRight[this.buttonNum].showing) {
   if(this.buttonLeft[this.buttonNum].contains()) {
     this.buttonLeft[this.buttonNum].showOff();
     this.buttonRight[this.buttonNum].showOff();
@@ -86,7 +89,7 @@ mousePressed2() {
     this.textRight = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 8;
+      this.timedue = 2;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
@@ -99,12 +102,13 @@ mousePressed2() {
     this.textLeft = false;
 
     if (this.buttonNum < 9) {
-      this.timedue = 8;
+      this.timedue = 2;
     } else if (this.buttonNum == 9)
       this.timedue = 2;
 
     this.buttonNum++;
   }
+ }
 }
 
 afterEffect() {
@@ -120,6 +124,7 @@ afterEffect() {
      this.finish();
    }
 }
+
 messageShowLeft() {
     noStroke();
     fill(100);
@@ -185,9 +190,11 @@ drawStage2() {
       }
       if(this.countdown()) {
         tint(this.buttonLeft[this.buttonNum].tint);
+        //this.buttonLeft[this.buttonNum].on == true;
         this.buttonLeft[this.buttonNum].show();
 
         tint(this.buttonRight[this.buttonNum].tint);
+        //this.buttonRight[this.buttonNum].on == true;
         this.buttonRight[this.buttonNum].show();
 
         tint(255);

@@ -5,8 +5,10 @@ class Button {
     this.tint = 255;
     this.on = true;
     this.img = _image;
+    this.showing = false;
   }
   show() {
+  this.showing = true;
   if(this.on) {
   image(this.img, this.x, this.y);
   if(this.contains())
@@ -22,7 +24,7 @@ showOff() {
 }
 
 contains() {
-     if((this.x<mouseX)&&(this.x + 506 >mouseX)&&(this.y<mouseY)&&(this.y + 83>mouseY))
+   if((this.x<mouseX)&&(this.x + 506 >mouseX)&&(this.y<mouseY)&&(this.y + 83>mouseY))
    return true;
   else
    return false;
