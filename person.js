@@ -13,7 +13,7 @@ class Person {
     this.speed = speed;
     this.anim = 0;
   }
-  
+
   getId(){
     return this.id;
   }
@@ -23,15 +23,15 @@ class Person {
   getY(){
     return this.y;
   }
-  
+
   move(){
     this.x -= this.speed;
   }
-  
+
   pass(dis){
     this.x -= dis;
   }
-  
+
   show(){
     imageMode(CENTER);
     image(passerbyImages[this.type][this.anim], this.x, this.y);

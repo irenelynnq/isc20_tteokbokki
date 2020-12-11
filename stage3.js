@@ -73,9 +73,9 @@ class Stage3 {
     if (this.isSorry) {
       this.displaySorry();
     }
-    if (frameCount % 300 == 0) {
+    if (millis() >= this.personTime + 6000) {
       //generate random person
-      //this.personTime = millis();
+      this.personTime = millis();
       let lane = int(random(0, 3));
       this.people[lane].push(new Person(this.personId, lane, int(random(3)), random(0.5, 0.7)));
       this.personId += 1;
