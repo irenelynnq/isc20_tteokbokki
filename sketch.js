@@ -11,7 +11,11 @@ const statTutorial3 = 8;
 const statStage3 = 9;
 const statFinishedStage3 = 10;
 const statEnding = 11;
-const statGiveup = 12;
+const statEndingTitle = 12;
+const statEndingCredit = 13;
+const statGiveup = 14;
+const statGiveupTitle = 15;
+const statGiveupCredit = 16;
 
 let gameStat;
 let giveupButtonNormal;
@@ -22,8 +26,14 @@ let mainImage;
 let warningImage;
 let momletter;
 let momletterB;
-let bgm;
+let bgm1;
+let bgm2;
+let bgm3;
+let bgmEnding;
+let bgmGiveup;
+let currentBgm;
 let playing = false;
+let ending;
 
 //data tables
 let thinkTable;
@@ -80,6 +90,10 @@ let giveupImages;
 let endingImages;
 let timeCounter;
 let imageIndex;
+let giveupTitleImage;
+let giveupCreditImage;
+let endingTitleImage;
+let endingCreditImage;
 
 function preload() {
   happinessWalkImages = [];
@@ -107,7 +121,7 @@ function preload() {
   preloadData();
   loadStage2();
   soundFormats('mp3', 'ogg');
-  bgm = loadSound('assets/etc/the woods silent partner.mp3');
+  preloadSound();
 
 }
 
@@ -116,10 +130,7 @@ function setup() {
   textFont(momletter);
   gameStat = statWarning;
   imageIndex = 0;
-  // giveupButton = createButton('포기하기');
-  // giveupButton.size(110, 40);
-  // giveupButton.mousePressed(giveup);
-  //bgm.play();
+  ending = false;
 }
 
 function draw() {
@@ -165,8 +176,20 @@ function draw() {
     case statEnding:
       drawEnding();
       break;
+    case statEndingTitle:
+      drawTitle();
+      break;
+    case statEndingCredit:
+      drawCredit();
+      break;
     case statGiveup:
       drawGiveup();
+      break;
+    case statGiveupTitle:
+      drawTitle();
+      break;
+    case statGiveupCredit:
+      drawCredit();
       break;
   }
 }
@@ -193,9 +216,10 @@ function keyPressed() {
       break;
     case statMain:
       if (keyCode === ENTER) {
-        if(!playing && bgm.isLoaded()) {
+        if(!playing) {
           playing = true;
-          bgm.loop();
+          currentBgm = bgm1;
+          currentBgm.loop();
         }
         imageIndex = 0;
         gameStat = statIntro;
@@ -230,6 +254,9 @@ function keyPressed() {
     case statFinishedStage1:
       if (keyCode === ENTER) {
         gameStat = statTutorial2;
+        currentBgm.stop();
+        currentBgm = bgm2;
+        currentBgm.loop();
       }
       break;
     case statTutorial2:
@@ -263,6 +290,16 @@ function keyPressed() {
         }
       }
       break;
+    case statEndingTitle:
+      break;
+    case statEndingCredit:
+      if (keyCode === ENTER){
+        gameStat = statMain;
+        currentBgm.stop();
+        currentBgm = bgm1;
+        currentBgm.loop();
+      }
+      break;
     case statGiveup:
       if (keyCode === ENTER){
         if (imageIndex < giveupImages.length - 1) {
@@ -272,6 +309,16 @@ function keyPressed() {
             timeCounter = millis();
           }
         }
+      }
+      break;
+    case statGiveupTitle:
+      break;
+    case statGiveupCredit:
+      if (keyCode === ENTER){
+        gameStat = statMain;
+        currentBgm.stop();
+        currentBgm = bgm1;
+        currentBgm.loop();
       }
       break;
   }
@@ -303,8 +350,9 @@ function drawGiveup(){
   image(giveupImages[imageIndex], 0, 0);
   if(imageIndex == giveupImages.length - 1) {
     if(countSec(3, timeCounter)) {
-      gameStat = statMain;
+      gameStat = statGiveupTitle;
       imageIndex = 0;
+      timeCounter = millis();
     }
   }
 }
@@ -314,9 +362,34 @@ function drawEnding(){
   image(endingImages[imageIndex], 0, 0);
   if(imageIndex == endingImages.length - 1) {
     if(countSec(3, timeCounter)) {
-      gameStat = statMain;
+      gameStat = statEndingTitle;
       imageIndex = 0;
+      timeCounter = millis();
     }
+  }
+}
+
+function drawTitle(){
+  imageMode(CORNER);
+  if (ending){
+    image(endingTitleImage, 0, 0);
+    if(countSec(2, timeCounter)) {
+      gameStat = statEndingCredit;
+    }
+  } else {
+    image(giveupTitleImage, 0, 0);
+    if(countSec(2, timeCounter)) {
+      gameStat = statGiveupCredit;
+    }
+  }
+
+}
+function drawCredit(){
+  imageMode(CORNER);
+  if (ending){
+    image(endingCreditImage, 0, 0);
+  } else {
+    image(giveupCreditImage, 0, 0);
   }
 }
 
@@ -331,13 +404,6 @@ function drawGiveupButton(){
   }
 }
 
-// function displayButton() {
-//   giveupButton.position(830, 540);
-// }
-
-// function hideButton() {
-//   giveupButton.position(-999, -999);
-// }
 
 function countSec(sec, standard){
   if(millis() >= standard + (sec * 1000)) {
@@ -352,8 +418,12 @@ function giveup() {
     stage1.hideInput();
   }
   noTint();
+  ending = false;
   gameStat = statGiveup;
-  //hideButton();
+  currentBgm.stop();
+  currentBgm = bgmGiveup;
+  currentBgm.loop();
+
 }
 
 function preloadTutorial() {
@@ -379,6 +449,11 @@ function preloadData() {
 
 function preloadImages() {
   warningImage = loadImage('assets/etc/Warning.png');
+  giveupTitleImage = loadImage('assets/etc/GiveUpTitle.png');
+  giveupCreditImage = loadImage('assets/etc/GiveUpCredit.png');
+  endingTitleImage = loadImage('assets/etc/EndingTitle.png');
+  endingCreditImage = loadImage('assets/etc/EndingCredit.png');
+
   for(let i = 1; i < 7; i++) {
     introImages.push(loadImage('assets/cutScene/Intro' + i + '.png'));
   }
@@ -416,6 +491,14 @@ function preloadImages() {
     choiceA.push(loadImage('assets/stage2/ChoiceA/ChoiceA' + i + '.png'));
     choiceB.push(loadImage('assets/stage2/ChoiceB/ChoiceB' + i + '.png'));
   }
+}
+
+function preloadSound(){
+  bgm1 = loadSound('assets/etc/the woods silent partner.mp3');
+  bgm2 = loadSound('assets/etc/carried.mp3');
+  bgm3 = loadSound('assets/etc/three wise people.mp3');
+  bgmEnding = loadSound('assets/etc/wave in the atmosphere.mp3');
+  bgmGiveup = loadSound('assets/etc/calmant.mp3');
 }
 
 function loadThink() {

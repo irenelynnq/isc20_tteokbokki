@@ -38,7 +38,6 @@ class Stage1 {
     }
 
     if (this.thinkNum <= 0) {
-      console.log("finish stage 1");
       this.finish();
     }
   }

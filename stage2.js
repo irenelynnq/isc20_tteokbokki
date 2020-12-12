@@ -205,6 +205,9 @@ drawStage2() {
 finish() {
   noTint();
   gameStat = statTutorial3;
+  currentBgm.stop();
+  currentBgm = bgm3;
+  currentBgm.loop();
 }
 
 }

@@ -39,6 +39,7 @@ class Stage3 {
 
   finish(){
     gameStat = statFinishedStage3;
+    ending = true;
   }
 
   drawStage3() {
@@ -79,7 +80,6 @@ class Stage3 {
       let lane = int(random(0, 3));
       this.people[lane].push(new Person(this.personId, lane, int(random(3)), random(0.5, 0.7)));
       this.personId += 1;
-      //console.log("generate!" + this.people[lane][0].type);
     }
   }
 
@@ -150,7 +150,6 @@ class Stage3 {
         if (this.people[i][0].getX() < -50) {
           //delete people out of the scene
           this.people[i].splice(0, 1);
-          console.log("delete " + i + " " + this.people[i].length);
         }
       }
     }
@@ -202,9 +201,6 @@ class Stage3 {
   }
 
   displaySorry() {
-    // fill(255);
-    // textAlign(LEFT);
-    // text("죄송합니다...", 80, 560);
     imageMode(CORNER);
     image(sorryBox, this.player.getX() + 35, this.player.getY() - 50, 108, 27);
     if (millis() - this.sorryTime >= 2000) {
@@ -218,7 +214,6 @@ class Stage3 {
   }
 
   drawStage3Finished(){
-    //rectMode(CORNER);
     image(stage3FinishBackground, 0, 0);
     let s;
     textAlign(LEFT, TOP);
@@ -232,6 +227,9 @@ class Stage3 {
       this.writeSentence(this.sequenceFull[this.sequenceFull.length - 1]);
       if(countSec(3, this.timeStandard)) {
         gameStat = statEnding;
+        currentBgm.stop();
+        currentBgm = bgmEnding;
+        currentBgm.loop();
         textFont(momletter);
       }
     } else {
