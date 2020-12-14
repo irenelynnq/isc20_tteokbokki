@@ -223,13 +223,14 @@ function keyPressed() {
         }
         imageIndex = 0;
         gameStat = statIntro;
-      } else if (key == '1') {
-        gameStat = statTutorial1;
-      } else if (key == '2') {
-        gameStat = statTutorial2;
-      } else if (key == '3') {
-        gameStat = statTutorial3;
       }
+      // else if (key == '1') {
+      //   gameStat = statTutorial1;
+      // } else if (key == '2') {
+      //   gameStat = statTutorial2;
+      // } else if (key == '3') {
+      //   gameStat = statTutorial3;
+      // }
       break;
     case statIntro:
       if (keyCode === ENTER){
